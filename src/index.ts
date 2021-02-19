@@ -1,1 +1,1 @@
-console.log('Hello, world');
+export { supportsMediaDevices } from './support-detection';
