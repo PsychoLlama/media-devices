@@ -134,4 +134,12 @@ describe('DeviceManager', () => {
 
     expect(getMediaDevicesApi().enumerateDevices).not.toHaveBeenCalled();
   });
+
+  it('refreshes the device list after a successful GUM query', async () => {
+    setDeviceList([{ label: '' }]);
+    const { devices } = setup();
+    await devices.getUserMedia({ video: true });
+
+    expect(getMediaDevicesApi().enumerateDevices).toHaveBeenCalled();
+  });
 });

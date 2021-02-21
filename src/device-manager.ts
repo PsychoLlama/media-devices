@@ -1,5 +1,6 @@
 import enumerateDevices, { DeviceInfo } from './enumerate-devices';
 import { getMediaDevicesApi } from './support-detection';
+import getUserMedia from './get-user-media';
 
 /**
  * Monitors the set of devices for changes and calculates convenient diffs
@@ -26,6 +27,22 @@ export default class DeviceManager {
 
   subscribe<Fn extends Callback>(callback: Fn) {
     this._subscribers.push(callback);
+  }
+
+  async getUserMedia(constraints: MediaStreamConstraints) {
+    const stream = await getUserMedia(constraints);
+
+    // The browser considers us trusted after the first approved GUM query and
+    // allows access to more information in the device list, which is an
+    // implicit device change event. Refresh to update the cache.
+    //
+    // We do this for every GUM request because some browsers only allow
+    // access to the subset of devices you've been approved for. While
+    // reasonable from a security perspective, it means we're never sure if
+    // the cache is stale.
+    this.enumerate();
+
+    return stream;
   }
 
   async enumerate() {

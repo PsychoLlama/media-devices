@@ -22,3 +22,5 @@ export class MockMediaDevices extends EventEmitter implements MediaDevices {
   removeEventListener = this.removeListener;
   enumerateDevices = jest.fn().mockResolvedValue([]);
 }
+
+export class MockMediaStream {}
