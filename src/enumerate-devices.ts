@@ -27,9 +27,9 @@ function isPhysicalDevice(device: MediaDeviceInfo) {
 function normalizeDeviceInfo(device: MediaDeviceInfo): DeviceInfo {
   return {
     label: device.label || null,
+    kind: device.kind as DeviceKind,
     deviceId: device.deviceId || null,
     groupId: device.groupId,
-    kind: device.kind as DeviceKind,
   };
 }
 
