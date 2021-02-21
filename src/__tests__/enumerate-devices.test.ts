@@ -37,4 +37,18 @@ describe('Device enumeration', () => {
 
     expect(devices[0]).toMatchObject(device);
   });
+
+  it('strips default meta-devices', async () => {
+    const device = {
+      label: 'Surveillance Camera #451',
+      deviceId: 'device-id',
+    };
+
+    setDeviceList([device, { ...device, deviceId: 'default' }]);
+
+    const devices = await enumerateDevices();
+
+    expect(devices).toHaveLength(1);
+    expect(devices[0]).toMatchObject({ deviceId: device.deviceId });
+  });
 });

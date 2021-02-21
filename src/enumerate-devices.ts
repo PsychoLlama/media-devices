@@ -1,17 +1,39 @@
+/**
+ * A normalization layer over `MediaDevices.enumerateDevices()`:
+ * https://developer.mozilla.org/en-US/docs/Web/API/MediaDeviceInfo
+ *
+ * The API is fraught with cross-browser quirks and fingerprinting blocks.
+ * This interface seeks to normalize some of those quirks and make the
+ * security tradeoffs obvious.
+ */
 export default async function enumerateDevices(): Promise<Array<DeviceInfo>> {
   const devices = await navigator.mediaDevices.enumerateDevices();
-
-  return devices.map<DeviceInfo>(device => {
-    return {
-      label: device.label || null,
-      deviceId: device.deviceId || null,
-      groupId: device.groupId,
-      kind: device.kind as DeviceKind,
-    };
-  });
+  return devices.filter(isPhysicalDevice).map(normalizeDeviceInfo);
 }
 
-interface DeviceInfo {
+/**
+ * Chromium does this really annoying thing where it duplicates preferred
+ * devices by substituting the ID with "default". No other browser does this,
+ * and preferred devices are already represented by list order.
+ *
+ * Since those meta-devices don't add relevant information and risk confusing
+ * device UIs, I simply remove them.
+ */
+function isPhysicalDevice(device: MediaDeviceInfo) {
+  return device.deviceId !== 'default';
+}
+
+// Make nullable fields explicit.
+function normalizeDeviceInfo(device: MediaDeviceInfo): DeviceInfo {
+  return {
+    label: device.label || null,
+    deviceId: device.deviceId || null,
+    groupId: device.groupId,
+    kind: device.kind as DeviceKind,
+  };
+}
+
+export interface DeviceInfo {
   /**
    * The device list is obfuscated until you gain elevated permissions.
    * Browsers will use an empty string for the device label until the first
