@@ -65,23 +65,25 @@ export default class DeviceManager {
     newDevices: Array<DeviceInfo>,
     oldDevices: Array<DeviceInfo>
   ): Array<DeviceChange> {
-    const additions = newDevices.slice();
     const removals = oldDevices.slice();
     const updates: Array<DeviceChange> = [];
 
     // If a "new" device exists in the list of old devices, then it obviously
     // wasn't just added and clearly we haven't removed it either. It's the
     // same device.
-    additions.forEach((newDevice, newDeviceIndex) => {
+    const additions = newDevices.filter(newDevice => {
       const oldDeviceIndex = removals.findIndex(oldDevice => {
         return isIdenticalDevice(newDevice, oldDevice);
       });
 
+      // Note: Nasty state mutation hides here.
+      // Maps/Sets are out of the question due to poor TS support. Plus IDs
+      // are far too unreliable in this context. Iteration and splice() are
+      // ugly and gross, but they work.
       if (oldDeviceIndex > -1) {
-        additions.splice(newDeviceIndex, 1);
         const [oldDevice] = removals.splice(oldDeviceIndex, 1);
 
-        if (!oldDevice.deviceId && newDevice.deviceId) {
+        if (newDevice.label !== oldDevice.label) {
           const update: DeviceUpdateEvent = {
             type: DeviceChangeType.Update,
             newInfo: newDevice,
@@ -91,6 +93,10 @@ export default class DeviceManager {
           updates.push(update);
         }
       }
+
+      // Only count it as an "addition" if we couldn't find the same device in
+      // the older set.
+      return oldDeviceIndex === -1;
     });
 
     return [
