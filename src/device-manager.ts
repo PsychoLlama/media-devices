@@ -8,7 +8,7 @@ import { getMediaDevicesApi } from './support-detection';
  */
 export default class DeviceManager {
   _knownDevices: Array<DeviceInfo> = [];
-  _observers: Array<Callback> = [];
+  _subscribers: Array<Callback> = [];
 
   constructor() {
     // Listen for changes at the OS level. If the device list changes and
@@ -16,7 +16,7 @@ export default class DeviceManager {
     // a side effect of performing a diff and telling all subscribers about
     // the change.
     getMediaDevicesApi().addEventListener('devicechange', () => {
-      if (this._observers.length) {
+      if (this._subscribers.length) {
         return this.enumerate();
       }
 
@@ -24,8 +24,8 @@ export default class DeviceManager {
     });
   }
 
-  observe<Fn extends Callback>(callback: Fn) {
-    this._observers.push(callback);
+  subscribe<Fn extends Callback>(callback: Fn) {
+    this._subscribers.push(callback);
   }
 
   async enumerate() {
@@ -46,8 +46,8 @@ export default class DeviceManager {
 
     // Notify subscribers of any changes.
     if (changes.length) {
-      this._observers.forEach(observer => {
-        observer(changes);
+      this._subscribers.forEach(subscriber => {
+        subscriber(changes);
       });
     }
   }

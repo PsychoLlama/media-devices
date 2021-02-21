@@ -12,7 +12,7 @@ describe('DeviceManager', () => {
   const setup = () => {
     const handler = jest.fn();
     const devices = new DeviceManager();
-    devices.observe(handler);
+    devices.subscribe(handler);
 
     return {
       handler,
@@ -38,7 +38,7 @@ describe('DeviceManager', () => {
     ]);
   });
 
-  it('does not duplicate change notifications to observers', async () => {
+  it('does not duplicate change notifications to subscribers', async () => {
     const { handler, devices } = setup();
     setDeviceList([{}]);
 
@@ -56,7 +56,7 @@ describe('DeviceManager', () => {
     setDeviceList([]);
     const handler = jest.fn();
 
-    devices.observe(handler);
+    devices.subscribe(handler);
     await devices.enumerate();
 
     expect(handler).toHaveBeenCalledWith([
