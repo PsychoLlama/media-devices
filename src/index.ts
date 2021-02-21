@@ -1,2 +1,4 @@
 export { supportsMediaDevices } from './support-detection';
-export { default as enumerateDevices } from './enumerate-devices';
+import DeviceManager from './device-manager';
+
+export default new DeviceManager();
