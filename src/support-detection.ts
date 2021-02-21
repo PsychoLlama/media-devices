@@ -6,3 +6,11 @@
 export function supportsMediaDevices() {
   return !!navigator.mediaDevices;
 }
+
+export function getMediaDevicesApi() {
+  if (!supportsMediaDevices()) {
+    throw new Error(`This browser doesn't support media devices.`);
+  }
+
+  return navigator.mediaDevices;
+}

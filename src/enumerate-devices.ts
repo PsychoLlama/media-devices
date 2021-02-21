@@ -1,3 +1,5 @@
+import { getMediaDevicesApi } from './support-detection';
+
 /**
  * A normalization layer over `MediaDevices.enumerateDevices()`:
  * https://developer.mozilla.org/en-US/docs/Web/API/MediaDeviceInfo
@@ -7,7 +9,7 @@
  * security tradeoffs obvious.
  */
 export default async function enumerateDevices(): Promise<Array<DeviceInfo>> {
-  const devices = await navigator.mediaDevices.enumerateDevices();
+  const devices = await getMediaDevicesApi().enumerateDevices();
   return devices.filter(isPhysicalDevice).map(normalizeDeviceInfo);
 }
 
