@@ -1,4 +1,5 @@
 import enumerateDevices, { DeviceInfo } from './enumerate-devices';
+import { getMediaDevicesApi } from './support-detection';
 
 /**
  * Monitors the set of devices for changes and calculates convenient diffs
@@ -8,6 +9,20 @@ import enumerateDevices, { DeviceInfo } from './enumerate-devices';
 export default class DeviceManager {
   _knownDevices: Array<DeviceInfo> = [];
   _observers: Array<Callback> = [];
+
+  constructor() {
+    // Listen for changes at the OS level. If the device list changes and
+    // someone's around to see it, refresh the device list. Refreshing has
+    // a side effect of performing a diff and telling all subscribers about
+    // the change.
+    getMediaDevicesApi().addEventListener('devicechange', () => {
+      if (this._observers.length) {
+        return this.enumerate();
+      }
+
+      return Promise.resolve();
+    });
+  }
 
   observe<Fn extends Callback>(callback: Fn) {
     this._observers.push(callback);

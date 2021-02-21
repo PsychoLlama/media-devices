@@ -1,8 +1,11 @@
 import DeviceManager, { DeviceChangeType } from '../device-manager';
 import { setDeviceList } from '../test-utils';
+import { getMediaDevicesApi } from '../support-detection';
 
 describe('DeviceManager', () => {
   beforeEach(() => {
+    (getMediaDevicesApi() as any).removeAllListeners('devicechange');
+    (getMediaDevicesApi() as any).enumerateDevices.mockClear();
     setDeviceList([]);
   });
 
@@ -104,5 +107,31 @@ describe('DeviceManager', () => {
         newInfo: device,
       },
     ]);
+  });
+
+  it('watches the device list for changes at the OS level', async () => {
+    const { handler, devices } = setup();
+    await devices.enumerate();
+
+    handler.mockClear();
+    setDeviceList([{ label: 'Telescope' }]);
+    const [listener] = (getMediaDevicesApi() as any).listeners('devicechange');
+
+    await listener();
+
+    expect(handler).toHaveBeenCalledWith([
+      expect.objectContaining({ type: DeviceChangeType.Add }),
+    ]);
+  });
+
+  it('only watches the device list if there are subscribers', async () => {
+    new DeviceManager();
+
+    setDeviceList([{}]);
+    const [listener] = (getMediaDevicesApi() as any).listeners('devicechange');
+
+    await listener();
+
+    expect(getMediaDevicesApi().enumerateDevices).not.toHaveBeenCalled();
   });
 });
