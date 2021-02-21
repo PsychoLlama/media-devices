@@ -24,14 +24,14 @@ describe('DeviceManager', () => {
     const { devices } = setup();
     const expectedDevices = setDeviceList([{ label: 'telescreen' }]);
 
-    await expect(devices.enumerate()).resolves.toEqual(expectedDevices);
+    await expect(devices.enumerateDevices()).resolves.toEqual(expectedDevices);
   });
 
   it('detects device changes between queries', async () => {
     const { handler, devices } = setup();
     setDeviceList([{}]);
 
-    const [device] = await devices.enumerate();
+    const [device] = await devices.enumerateDevices();
 
     expect(handler).toHaveBeenCalledWith([
       { type: DeviceChangeType.Add, device },
@@ -42,8 +42,8 @@ describe('DeviceManager', () => {
     const { handler, devices } = setup();
     setDeviceList([{}]);
 
-    await devices.enumerate();
-    await devices.enumerate();
+    await devices.enumerateDevices();
+    await devices.enumerateDevices();
 
     expect(handler).toHaveBeenCalledTimes(1);
   });
@@ -52,12 +52,12 @@ describe('DeviceManager', () => {
     setDeviceList([{}]);
     const { devices } = setup();
 
-    const [device] = await devices.enumerate();
+    const [device] = await devices.enumerateDevices();
     setDeviceList([]);
     const handler = jest.fn();
 
     devices.subscribe(handler);
-    await devices.enumerate();
+    await devices.enumerateDevices();
 
     expect(handler).toHaveBeenCalledWith([
       { type: DeviceChangeType.Remove, device },
@@ -67,11 +67,11 @@ describe('DeviceManager', () => {
   it('correlates identical devices between calls', async () => {
     const [device] = setDeviceList([{ label: 'first' }]);
     const { handler, devices } = setup();
-    await devices.enumerate();
+    await devices.enumerateDevices();
     setDeviceList([device, { label: 'second' }]);
 
     handler.mockClear();
-    const [, secondDevice] = await devices.enumerate();
+    const [, secondDevice] = await devices.enumerateDevices();
 
     expect(handler).toHaveBeenCalledWith([
       { type: DeviceChangeType.Add, device: secondDevice },
@@ -91,13 +91,13 @@ describe('DeviceManager', () => {
 
     // Simulates fingerprinting countermeasures.
     setDeviceList([redactedDevice]);
-    await devices.enumerate();
+    await devices.enumerateDevices();
 
     // Same device after the first approved `getUserMedia(...)` request.
     setDeviceList([device]);
 
     handler.mockClear();
-    await devices.enumerate();
+    await devices.enumerateDevices();
 
     // It should detect that it's the same device.
     expect(handler).toHaveBeenCalledWith([
@@ -111,7 +111,7 @@ describe('DeviceManager', () => {
 
   it('watches the device list for changes at the OS level', async () => {
     const { handler, devices } = setup();
-    await devices.enumerate();
+    await devices.enumerateDevices();
 
     handler.mockClear();
     setDeviceList([{ label: 'Telescope' }]);

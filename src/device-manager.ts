@@ -18,7 +18,7 @@ export default class DeviceManager {
     // the change.
     getMediaDevicesApi().addEventListener('devicechange', () => {
       if (this._subscribers.length) {
-        return this.enumerate();
+        return this.enumerateDevices();
       }
 
       return Promise.resolve();
@@ -40,12 +40,12 @@ export default class DeviceManager {
     // access to the subset of devices you've been approved for. While
     // reasonable from a security perspective, it means we're never sure if
     // the cache is stale.
-    this.enumerate();
+    this.enumerateDevices();
 
     return stream;
   }
 
-  async enumerate() {
+  async enumerateDevices() {
     const devices = await enumerateDevices();
     this._checkForDeviceChanges(devices);
 
