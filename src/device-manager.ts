@@ -25,10 +25,19 @@ export default class DeviceManager {
     });
   }
 
+  /**
+   * Listen for changes in the list of devices. The callback is invoked when
+   * devices are added, removed, or updated.
+   */
   subscribe<Fn extends Callback>(callback: Fn) {
     this._subscribers.push(callback);
   }
 
+  /**
+   * Request a live media stream from audio and/or video devices. Streams are
+   * configurable through constraints.
+   * See: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+   */
   async getUserMedia(constraints: MediaStreamConstraints) {
     const stream = await getUserMedia(constraints);
 
@@ -45,11 +54,36 @@ export default class DeviceManager {
     return stream;
   }
 
-  async enumerateDevices() {
+  /**
+   * Ask the user to share their screen. Resolves with a media stream carrying
+   * video, and potentially audio from the application window.
+   * See: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getDisplayMedia
+   */
+  async getDisplayMedia(
+    constraints?: MediaStreamConstraints
+  ): Promise<MediaStream> {
+    return getMediaDevicesApi().getDisplayMedia(constraints);
+  }
+
+  /**
+   * Lists every available hardware device, including microphones, cameras,
+   * and speakers (depending on browser support). May contain redacted
+   * information depending on application permissions.
+   */
+  async enumerateDevices(): Promise<Array<DeviceInfo>> {
     const devices = await enumerateDevices();
     this._checkForDeviceChanges(devices);
 
     return devices;
+  }
+
+  /**
+   * Returns an object containing every media constraint supported by the
+   * browser.
+   * See: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getSupportedConstraints
+   */
+  getSupportedConstraints(): MediaTrackSupportedConstraints {
+    return getMediaDevicesApi().getSupportedConstraints();
   }
 
   _checkForDeviceChanges(newDevices: Array<DeviceInfo>) {
@@ -184,3 +218,9 @@ export enum DeviceChangeType {
 }
 
 type Callback = (deviceChanges: Array<DeviceChange>) => any;
+
+declare global {
+  interface MediaDevices {
+    getDisplayMedia(constraints?: MediaStreamConstraints): Promise<MediaStream>;
+  }
+}

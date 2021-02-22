@@ -15,6 +15,7 @@ export class MockMediaDevices extends EventEmitter implements MediaDevices {
   dispatchEvent = jest.fn();
   ondevicechange = null;
   getUserMedia = jest.fn();
+  getDisplayMedia = jest.fn();
   getSupportedConstraints = jest.fn();
 
   // --- complete stubs ---

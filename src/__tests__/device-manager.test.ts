@@ -142,4 +142,26 @@ describe('DeviceManager', () => {
 
     expect(getMediaDevicesApi().enumerateDevices).toHaveBeenCalled();
   });
+
+  it('returns the supported constraints when requested', () => {
+    (getMediaDevicesApi() as any).getSupportedConstraints.mockReturnValue({
+      mock: 'supported-constraints',
+    });
+
+    const { devices } = setup();
+    const constraints = devices.getSupportedConstraints();
+
+    expect(constraints).toEqual(
+      navigator.mediaDevices.getSupportedConstraints()
+    );
+  });
+
+  it('returns the display media stream when requested', async () => {
+    const stream = new MediaStream();
+    (getMediaDevicesApi() as any).getDisplayMedia.mockResolvedValue(stream);
+
+    const { devices } = setup();
+
+    await expect(devices.getDisplayMedia()).resolves.toBe(stream);
+  });
 });
