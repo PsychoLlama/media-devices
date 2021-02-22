@@ -4,6 +4,8 @@
   "version": "0.1.0",
   "license": "MIT",
   "author": "Jesse Gibson <JesseTheGibson@gmail.com>",
+  "repository": "github:PsychoLlama/media-devices",
+  "homepage": "https://github.com/PsychoLlama/media-devices#readme",
   "module": "dist/media-devices.esm.js",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -11,9 +13,13 @@
     "dist",
     "src"
   ],
-  "engines": {
-    "node": ">=10"
-  },
+  "keywords": [
+    "camera",
+    "microphone",
+    "speakers",
+    "devices",
+    "mediadevices"
+  ],
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
