@@ -4,12 +4,12 @@
  * the `mediaDevices` API entirely.
  */
 export function supportsMediaDevices() {
-  return !!navigator.mediaDevices;
+  return typeof navigator !== 'undefined' && !!navigator.mediaDevices;
 }
 
 export function getMediaDevicesApi() {
   if (!supportsMediaDevices()) {
-    throw new Error(`This browser doesn't support media devices.`);
+    throw new Error(`The media devices API isn't supported here.`);
   }
 
   return navigator.mediaDevices;
