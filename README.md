@@ -50,6 +50,17 @@ interface DeviceUpdateEvent {
 }
 ```
 
+### `supportsMediaDevices()`
+Exported as a separate utility function, this helps determine if your browser supports the `navigator.mediaDevices` API. Be aware that some browsers only expose it on secure sites.
+
+```js
+import { supportsMediaDevices } from 'media-devices'
+
+if (supportsMediaDevices()) {
+  // ... party
+}
+```
+
 ---------------
 
 ## Known Quirks
