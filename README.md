@@ -9,6 +9,8 @@
 ## API
 The API is a carbon copy of [`navigator.mediaDevices`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/mediaDevices), with the exception of `ondevicechange` which was replaced for more bells and whistles.
 
+Here's an overview:
+
 ```js
 import MediaDevices from 'media-devices'
 
@@ -18,13 +20,16 @@ await MediaDevices.enumerateDevices()
 // Get the user's camera & microphone
 await MediaDevices.getUserMedia({ video: true, audio: true })
 
+// Share your screen
+await MediaDevices.getDisplayMedia()
+
 // Listen for changes in available devices
-MediaDevices.subscribe(changes => {
+MediaDevices.on('devicechange', changes => {
   // [{ type: 'add', ... }, { type: 'update', ... }]
 })
 ```
 
-### `mediaDevices.subscribe(...)`
+### `on('devicechange')`
 Notifies you whenever the device list is updated and passes you a list of changes. Each change is an update, removal, or addition.
 
 ```js
@@ -44,6 +49,8 @@ interface DeviceUpdateEvent {
   oldInfo: DeviceInfo;
 }
 ```
+
+---------------
 
 ## Known Quirks
 For the curious...

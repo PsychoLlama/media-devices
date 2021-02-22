@@ -12,7 +12,7 @@ describe('DeviceManager', () => {
   const setup = () => {
     const handler = jest.fn();
     const devices = new DeviceManager();
-    devices.subscribe(handler);
+    devices.on('devicechange', handler);
 
     return {
       handler,
@@ -56,7 +56,7 @@ describe('DeviceManager', () => {
     setDeviceList([]);
     const handler = jest.fn();
 
-    devices.subscribe(handler);
+    devices.on('devicechange', handler);
     await devices.enumerateDevices();
 
     expect(handler).toHaveBeenCalledWith([

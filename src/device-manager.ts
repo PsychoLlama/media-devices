@@ -1,3 +1,4 @@
+import EventEmitter from 'events';
 import enumerateDevices, { DeviceInfo } from './enumerate-devices';
 import { getMediaDevicesApi } from './support-detection';
 import getUserMedia from './get-user-media';
@@ -7,30 +8,23 @@ import getUserMedia from './get-user-media';
  * between updates. Steps are taken to handle cross-browser quirks and
  * attempts graceful integration with browser fingerprinting countermeasures.
  */
-export default class DeviceManager {
+export default class DeviceManager extends EventEmitter {
   _knownDevices: Array<DeviceInfo> = [];
-  _subscribers: Array<Callback> = [];
 
   constructor() {
+    super();
+
     // Listen for changes at the OS level. If the device list changes and
     // someone's around to see it, refresh the device list. Refreshing has
     // a side effect of performing a diff and telling all subscribers about
     // the change.
     getMediaDevicesApi().addEventListener('devicechange', () => {
-      if (this._subscribers.length) {
+      if (this.listenerCount('devicechange')) {
         return this.enumerateDevices();
       }
 
       return Promise.resolve();
     });
-  }
-
-  /**
-   * Listen for changes in the list of devices. The callback is invoked when
-   * devices are added, removed, or updated.
-   */
-  subscribe<Fn extends Callback>(callback: Fn) {
-    this._subscribers.push(callback);
   }
 
   /**
@@ -95,11 +89,8 @@ export default class DeviceManager {
       oldDevices
     );
 
-    // Notify subscribers of any changes.
     if (changes.length) {
-      this._subscribers.forEach(subscriber => {
-        subscriber(changes);
-      });
+      this.emit('devicechange', changes);
     }
   }
 
@@ -216,8 +207,6 @@ export enum DeviceChangeType {
   Remove = 'remove',
   Update = 'update',
 }
-
-type Callback = (deviceChanges: Array<DeviceChange>) => any;
 
 declare global {
   interface MediaDevices {
