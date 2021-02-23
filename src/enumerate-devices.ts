@@ -31,7 +31,7 @@ function normalizeDeviceInfo(device: MediaDeviceInfo): DeviceInfo {
     label: device.label || null,
     kind: device.kind as DeviceKind,
     deviceId: device.deviceId || null,
-    groupId: device.groupId,
+    groupId: device.groupId || null,
   };
 }
 
@@ -53,9 +53,10 @@ export interface DeviceInfo {
   /**
    * A unique identifier grouping one or more devices together. Two devices
    * with the same group ID symbolise that both devices belong to the same
-   * hardware, e.g. a webcam with an integrated microphone.
+   * hardware, e.g. a webcam with an integrated microphone. Note: Safari
+   * doesn't support group IDs.
    */
-  groupId: string;
+  groupId: null | string;
 
   /**
    * Declares the type of media provided. This covers microphones, cameras,

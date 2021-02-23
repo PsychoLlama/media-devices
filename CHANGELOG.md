@@ -7,6 +7,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 - Another parameter added to the `devicechange` listener containing the entire list of known devices.
 
+### Changed
+- Made `device.groupId` a nullable field because [Safari is a monster](https://github.com/PsychoLlama/media-devices/issues/3).
+
 ## [0.1.0] - 2021-02-21
 ### Added
 - Initial API compatible with `navigator.mediaDevices`.

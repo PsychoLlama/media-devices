@@ -115,6 +115,42 @@ describe('DeviceManager', () => {
     );
   });
 
+  // *scowls at Safari*
+  it('infers similarity between devices with omitted group IDs', async () => {
+    const redactedDevice = {
+      label: '',
+      deviceId: '',
+      groupId: '',
+      kind: 'audioinput' as const,
+    };
+
+    const device = {
+      ...redactedDevice,
+      label: '3D Scanner',
+      deviceId: 'wec3d',
+    };
+
+    setDeviceList([redactedDevice]);
+    const { handler, devices } = setup();
+    await devices.enumerateDevices();
+
+    setDeviceList([device]);
+    handler.mockClear();
+    await devices.enumerateDevices();
+
+    // It should detect that it's the same device.
+    expect(handler).toHaveBeenCalledWith(
+      [
+        {
+          type: DeviceChangeType.Update,
+          oldInfo: { ...device, deviceId: null, groupId: null, label: null },
+          newInfo: { ...device, groupId: null },
+        },
+      ],
+      expect.any(Array)
+    );
+  });
+
   it('watches the device list for changes at the OS level', async () => {
     const { handler, devices } = setup();
     await devices.enumerateDevices();

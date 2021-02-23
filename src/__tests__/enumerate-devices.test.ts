@@ -17,10 +17,14 @@ describe('Device enumeration', () => {
   });
 
   it('explicitly represents obfuscated fields', async () => {
-    setDeviceList([{ label: '', deviceId: '' }]);
+    setDeviceList([{ label: '', deviceId: '', groupId: '' }]);
     const [device] = await enumerateDevices();
 
-    expect(device).toMatchObject({ label: null, deviceId: null });
+    expect(device).toMatchObject({
+      label: null,
+      deviceId: null,
+      groupId: null,
+    });
   });
 
   it('adds device metadata', async () => {
