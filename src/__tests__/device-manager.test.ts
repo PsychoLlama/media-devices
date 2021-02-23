@@ -33,9 +33,10 @@ describe('DeviceManager', () => {
 
     const [device] = await devices.enumerateDevices();
 
-    expect(handler).toHaveBeenCalledWith([
-      { type: DeviceChangeType.Add, device },
-    ]);
+    expect(handler).toHaveBeenCalledWith(
+      [{ type: DeviceChangeType.Add, device }],
+      [device]
+    );
   });
 
   it('does not duplicate change notifications to subscribers', async () => {
@@ -59,9 +60,10 @@ describe('DeviceManager', () => {
     devices.on('devicechange', handler);
     await devices.enumerateDevices();
 
-    expect(handler).toHaveBeenCalledWith([
-      { type: DeviceChangeType.Remove, device },
-    ]);
+    expect(handler).toHaveBeenCalledWith(
+      [{ type: DeviceChangeType.Remove, device }],
+      expect.any(Array)
+    );
   });
 
   it('correlates identical devices between calls', async () => {
@@ -73,9 +75,10 @@ describe('DeviceManager', () => {
     handler.mockClear();
     const [, secondDevice] = await devices.enumerateDevices();
 
-    expect(handler).toHaveBeenCalledWith([
-      { type: DeviceChangeType.Add, device: secondDevice },
-    ]);
+    expect(handler).toHaveBeenCalledWith(
+      [{ type: DeviceChangeType.Add, device: secondDevice }],
+      expect.any(Array)
+    );
   });
 
   it('infers device relationships when the ID was just added', async () => {
@@ -100,13 +103,16 @@ describe('DeviceManager', () => {
     await devices.enumerateDevices();
 
     // It should detect that it's the same device.
-    expect(handler).toHaveBeenCalledWith([
-      {
-        type: DeviceChangeType.Update,
-        oldInfo: { ...device, deviceId: null, label: null },
-        newInfo: device,
-      },
-    ]);
+    expect(handler).toHaveBeenCalledWith(
+      [
+        {
+          type: DeviceChangeType.Update,
+          oldInfo: { ...device, deviceId: null, label: null },
+          newInfo: device,
+        },
+      ],
+      expect.any(Array)
+    );
   });
 
   it('watches the device list for changes at the OS level', async () => {
@@ -119,9 +125,10 @@ describe('DeviceManager', () => {
 
     await listener();
 
-    expect(handler).toHaveBeenCalledWith([
-      expect.objectContaining({ type: DeviceChangeType.Add }),
-    ]);
+    expect(handler).toHaveBeenCalledWith(
+      [expect.objectContaining({ type: DeviceChangeType.Add })],
+      expect.any(Array)
+    );
   });
 
   it('only watches the device list if there are subscribers', async () => {

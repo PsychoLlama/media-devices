@@ -90,7 +90,7 @@ export default class DeviceManager extends EventEmitter {
     );
 
     if (changes.length) {
-      this.emit('devicechange', changes);
+      this.emit('devicechange', changes, newDevices);
     }
   }
 
