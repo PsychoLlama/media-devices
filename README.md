@@ -9,7 +9,7 @@
 ## API
 The API is a carbon copy of [`navigator.mediaDevices`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/mediaDevices), with the exception of `ondevicechange` which was replaced for more bells and whistles.
 
-Here's an overview:
+Here's the gist:
 
 ```js
 import MediaDevices from 'media-devices'
@@ -29,27 +29,6 @@ MediaDevices.on('devicechange', changes => {
 })
 ```
 
-### `on('devicechange')`
-Notifies you whenever the device list is updated and passes you a list of changes. Each change is an update, removal, or addition.
-
-```js
-interface DeviceAddEvent {
-  type: 'add';
-  device: DeviceInfo;
-}
-
-interface DeviceRemoveEvent {
-  type: 'remove';
-  device: DeviceInfo;
-}
-
-interface DeviceUpdateEvent {
-  type: 'update';
-  newInfo: DeviceInfo;
-  oldInfo: DeviceInfo;
-}
-```
-
 ### `supportsMediaDevices()`
 Exported as a separate utility function, this helps determine if your browser supports the `navigator.mediaDevices` API. Be aware that some browsers only expose it on secure sites.
 
@@ -57,9 +36,48 @@ Exported as a separate utility function, this helps determine if your browser su
 import { supportsMediaDevices } from 'media-devices'
 
 if (supportsMediaDevices()) {
-  // ... party
+  // yey
 }
 ```
+
+### `on('devicechange')`
+`MediaDevices` emits this event whenever the list of devices changes. It passes two things:
+
+1. A list of changes
+1. The list of devices
+
+```js
+MediaDevices.on('devicechange', (changes, devices) => {
+  // ...
+})
+```
+
+The list of devices is exactly what you'd get from `enumerateDevices()`. The changes are a diff between this list and the last, showing which devices were added, which were removed, and which were updated.
+
+```js
+[
+  // A device was just plugged in.
+  {
+    type: 'add',
+    device: DeviceInfo,
+  },
+
+  // A device was disconnected.
+  {
+    type: 'remove',
+    device: DeviceInfo,
+  },
+
+  // The browser gave us more information about a device.
+  {
+    type: 'update',
+    oldInfo: DeviceInfo,
+    newInfo: DeviceInfo,
+  },
+]
+```
+
+Update events are odd. Browsers redact information until the user explicitly grants trust, so things like labels and device IDs might start off null. [Another quirk](#speaker-replacement) regarding speakers may cause the device to update in-place.
 
 ---------------
 
@@ -85,8 +103,13 @@ That makes it hard to tell whether the device list actually changed. This librar
 
 Device IDs are set to `null` in this case.
 
+### Missing Group IDs
+As of Safari v14, even with permissions, the browser doesn't provide group IDs. Why? Because they're monsters.
+
+Group IDs are `null` in Safari.
+
 ### Hidden Devices
-Chrome only shows the first of each device type (mic, camera, speakers) until `getUserMedia(...)` is approved. Other options are hidden. If you have 10 cameras, you'll only see the first until you're authorized. Even then, it only shows you cameras, microphones are still hidden.
+Chrome and Safari only show the first of each device type (mic, camera, speakers) until `getUserMedia(...)` is approved. Other options are hidden. If you have 10 cameras, you'll only see the first until you're authorized. Even then, Chrome only shows you cameras, microphones are still hidden.
 
 While we can't work around it, we can automatically identify that old camera in the list of 10 and show the other 9 as added devices.
 
