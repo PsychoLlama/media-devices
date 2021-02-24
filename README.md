@@ -1,6 +1,16 @@
 <div align="center">
   <h1>Media Devices</h1>
   <p>Easily manage media devices in the browser</p>
+  
+  <div>
+    <a href="https://github.com/PsychoLlama/media-devices/actions/workflows/main.yml">
+      <img src="https://img.shields.io/github/workflow/status/PsychoLlama/media-devices/CI/main" alt="Build status" />
+    </a>
+    <img src="https://img.shields.io/npm/types/media-devices" alt="Build status" />
+    <a href="https://www.npmjs.com/package/media-devices">
+      <img src="https://img.shields.io/npm/v/media-devices" alt="npm version" />
+    </a>
+  </div>
 </div>
 
 ## Purpose
