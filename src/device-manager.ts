@@ -1,6 +1,6 @@
 import EventEmitter from 'events';
 import enumerateDevices, { DeviceInfo } from './enumerate-devices';
-import { getMediaDevicesApi } from './support-detection';
+import { getMediaDevicesApi, supportsMediaDevices } from './support-detection';
 import getUserMedia from './get-user-media';
 
 /**
@@ -18,13 +18,15 @@ export default class DeviceManager extends EventEmitter {
     // someone's around to see it, refresh the device list. Refreshing has
     // a side effect of performing a diff and telling all subscribers about
     // the change.
-    getMediaDevicesApi().addEventListener('devicechange', () => {
-      if (this.listenerCount('devicechange')) {
-        return this.enumerateDevices();
-      }
+    if (supportsMediaDevices()) {
+      getMediaDevicesApi().addEventListener('devicechange', () => {
+        if (this.listenerCount('devicechange')) {
+          return this.enumerateDevices();
+        }
 
-      return Promise.resolve();
-    });
+        return Promise.resolve();
+      });
+    }
   }
 
   /**

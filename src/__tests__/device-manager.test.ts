@@ -207,4 +207,10 @@ describe('DeviceManager', () => {
 
     await expect(devices.getDisplayMedia()).resolves.toBe(stream);
   });
+
+  it('survives even if the media devices API is unsupported', () => {
+    delete (navigator as any).mediaDevices;
+
+    expect(setup).not.toThrow();
+  });
 });
