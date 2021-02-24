@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.2.0] - 2021-02-23
 ### Added
 - Another parameter added to the `devicechange` listener containing the entire list of known devices.
 - Enum and type exports for `DeviceKind`, `DeviceInfo`, and `OperationType`.
@@ -20,5 +22,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - A device list-diffing implementation of `ondevicechange`.
 - Support detection via `supportsMediaDevices()`.
 
-[Unreleased]: https://github.com/PsychoLlama/media-devices/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/PsychoLlama/media-devices/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/PsychoLlama/media-devices/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/PsychoLlama/media-devices/releases/tag/v0.1.0
