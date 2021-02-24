@@ -1,4 +1,4 @@
-import DeviceManager, { DeviceChangeType } from '../device-manager';
+import DeviceManager, { OperationType } from '../device-manager';
 import { setDeviceList } from '../test-utils';
 import { getMediaDevicesApi } from '../support-detection';
 
@@ -34,7 +34,7 @@ describe('DeviceManager', () => {
     const [device] = await devices.enumerateDevices();
 
     expect(handler).toHaveBeenCalledWith(
-      [{ type: DeviceChangeType.Add, device }],
+      [{ type: OperationType.Add, device }],
       [device]
     );
   });
@@ -61,7 +61,7 @@ describe('DeviceManager', () => {
     await devices.enumerateDevices();
 
     expect(handler).toHaveBeenCalledWith(
-      [{ type: DeviceChangeType.Remove, device }],
+      [{ type: OperationType.Remove, device }],
       expect.any(Array)
     );
   });
@@ -76,7 +76,7 @@ describe('DeviceManager', () => {
     const [, secondDevice] = await devices.enumerateDevices();
 
     expect(handler).toHaveBeenCalledWith(
-      [{ type: DeviceChangeType.Add, device: secondDevice }],
+      [{ type: OperationType.Add, device: secondDevice }],
       expect.any(Array)
     );
   });
@@ -106,7 +106,7 @@ describe('DeviceManager', () => {
     expect(handler).toHaveBeenCalledWith(
       [
         {
-          type: DeviceChangeType.Update,
+          type: OperationType.Update,
           oldInfo: { ...device, deviceId: null, label: null },
           newInfo: device,
         },
@@ -142,7 +142,7 @@ describe('DeviceManager', () => {
     expect(handler).toHaveBeenCalledWith(
       [
         {
-          type: DeviceChangeType.Update,
+          type: OperationType.Update,
           oldInfo: { ...device, deviceId: null, groupId: null, label: null },
           newInfo: { ...device, groupId: null },
         },
@@ -162,7 +162,7 @@ describe('DeviceManager', () => {
     await listener();
 
     expect(handler).toHaveBeenCalledWith(
-      [expect.objectContaining({ type: DeviceChangeType.Add })],
+      [expect.objectContaining({ type: OperationType.Add })],
       expect.any(Array)
     );
   });

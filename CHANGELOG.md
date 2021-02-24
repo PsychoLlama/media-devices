@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 ### Added
 - Another parameter added to the `devicechange` listener containing the entire list of known devices.
+- Enum and type exports for `DeviceKind`, `DeviceInfo`, and `OperationType`.
 
 ### Changed
 - Made `device.groupId` a nullable field because [Safari is a monster](https://github.com/PsychoLlama/media-devices/issues/3).

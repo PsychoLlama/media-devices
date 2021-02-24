@@ -129,7 +129,7 @@ export default class DeviceManager extends EventEmitter {
 
         if (newDevice.label !== oldDevice.label) {
           const update: DeviceUpdateEvent = {
-            type: DeviceChangeType.Update,
+            type: OperationType.Update,
             newInfo: newDevice,
             oldInfo: oldDevice,
           };
@@ -148,12 +148,12 @@ export default class DeviceManager extends EventEmitter {
 
       // A device was just removed.
       ...removals.map(device => {
-        return { type: DeviceChangeType.Remove, device } as DeviceRemoveEvent;
+        return { type: OperationType.Remove, device } as DeviceRemoveEvent;
       }),
 
       // A device was just plugged in.
       ...additions.map(device => {
-        return { type: DeviceChangeType.Add, device } as DeviceAddEvent;
+        return { type: OperationType.Add, device } as DeviceAddEvent;
       }),
     ];
   }
@@ -189,22 +189,22 @@ function isIdenticalDevice(newDevice: DeviceInfo, oldDevice: DeviceInfo) {
 type DeviceChange = DeviceAddEvent | DeviceRemoveEvent | DeviceUpdateEvent;
 
 interface DeviceAddEvent {
-  type: DeviceChangeType.Add;
+  type: OperationType.Add;
   device: DeviceInfo;
 }
 
 interface DeviceRemoveEvent {
-  type: DeviceChangeType.Remove;
+  type: OperationType.Remove;
   device: DeviceInfo;
 }
 
 interface DeviceUpdateEvent {
-  type: DeviceChangeType.Update;
+  type: OperationType.Update;
   newInfo: DeviceInfo;
   oldInfo: DeviceInfo;
 }
 
-export enum DeviceChangeType {
+export enum OperationType {
   Add = 'add',
   Remove = 'remove',
   Update = 'update',
