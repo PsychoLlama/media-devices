@@ -56,7 +56,7 @@
     }
   ],
   "devDependencies": {
-    "@size-limit/preset-small-lib": "6.0.4",
+    "@size-limit/preset-small-lib": "7.0.3",
     "husky": "7.0.4",
     "size-limit": "7.0.3",
     "tsdx": "0.14.1",
