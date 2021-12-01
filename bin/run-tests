@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+yarn -s test:unit --coverage || fail=1
+yarn -s test:lint || fail=1
+
+if [[ -n "$fail" ]]; then
+  exit 1
+fi
