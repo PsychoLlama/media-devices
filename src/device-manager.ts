@@ -186,7 +186,10 @@ function isIdenticalDevice(newDevice: DeviceInfo, oldDevice: DeviceInfo) {
   return toCrudeId(newDevice) === toCrudeId(oldDevice);
 }
 
-type DeviceChange = DeviceAddEvent | DeviceRemoveEvent | DeviceUpdateEvent;
+export type DeviceChange =
+  | DeviceAddEvent
+  | DeviceRemoveEvent
+  | DeviceUpdateEvent;
 
 interface DeviceAddEvent {
   type: OperationType.Add;
