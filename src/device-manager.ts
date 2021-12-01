@@ -10,6 +10,7 @@ import getUserMedia from './get-user-media';
  */
 export default class DeviceManager extends EventEmitter {
   private _knownDevices: Array<DeviceInfo> = [];
+  private _gainedScreenAccessOnce = false;
 
   /**
    * Specifies a function to be called whenever the list of available devices
@@ -67,7 +68,19 @@ export default class DeviceManager extends EventEmitter {
   async getDisplayMedia(
     constraints?: MediaStreamConstraints
   ): Promise<MediaStream> {
-    return getMediaDevicesApi().getDisplayMedia(constraints);
+    const stream = await getMediaDevicesApi().getDisplayMedia(constraints);
+
+    // Similar to `getUserMedia(...)`, granting access to your screen implies
+    // a certain level of trust. Some browsers will remove the fingerprinting
+    // protections after the first successful call. However, it's unlikely
+    // that another will tell us anything more, so we only refresh devices
+    // after the first success.
+    if (!this._gainedScreenAccessOnce) {
+      this._gainedScreenAccessOnce = true;
+      this.enumerateDevices();
+    }
+
+    return stream;
   }
 
   /**
