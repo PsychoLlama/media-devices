@@ -9,7 +9,16 @@ import getUserMedia from './get-user-media';
  * attempts graceful integration with browser fingerprinting countermeasures.
  */
 export default class DeviceManager extends EventEmitter {
-  _knownDevices: Array<DeviceInfo> = [];
+  private _knownDevices: Array<DeviceInfo> = [];
+
+  /**
+   * Specifies a function to be called whenever the list of available devices
+   * changes.
+   *
+   * Note: this is different from the native event. It passes the changeset
+   * and full list of devices as a parameter.
+   */
+  ondevicechange: null | DeviceChangeListener = null;
 
   constructor() {
     super();
@@ -20,7 +29,7 @@ export default class DeviceManager extends EventEmitter {
     // the change.
     if (supportsMediaDevices()) {
       getMediaDevicesApi().addEventListener('devicechange', () => {
-        if (this.listenerCount('devicechange')) {
+        if (this.listenerCount('devicechange') || this.ondevicechange) {
           return this.enumerateDevices();
         }
 
@@ -93,6 +102,7 @@ export default class DeviceManager extends EventEmitter {
 
     if (changes.length) {
       this.emit('devicechange', changes, newDevices);
+      this.ondevicechange?.({ changes, devices: newDevices });
     }
   }
 
@@ -211,6 +221,13 @@ export enum OperationType {
   Add = 'add',
   Remove = 'remove',
   Update = 'update',
+}
+
+interface DeviceChangeListener {
+  (update: {
+    changes: Array<DeviceChange>;
+    devices: Array<DeviceInfo>;
+  }): unknown;
 }
 
 declare global {

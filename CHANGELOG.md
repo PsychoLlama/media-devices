@@ -9,6 +9,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 - Export `DeviceChange` type which describes each object in a device change set.
+- New `mediaDevices.ondevicechange` mutable field for listeners.
+
+### Deprecated
+
+- Using the event emitter interface is no longer advised. It will be removed in a future release. Use the `ondevicechange` field instead:
+  ```diff
+  -mediaDevices.on('devicechange', handler)
+  +mediaDevices.ondevicechange = handler
+  ```
 
 ## [0.2.0] - 2021-02-23
 

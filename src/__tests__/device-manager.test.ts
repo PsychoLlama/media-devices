@@ -12,7 +12,7 @@ describe('DeviceManager', () => {
   const setup = () => {
     const handler = jest.fn();
     const devices = new DeviceManager();
-    devices.on('devicechange', handler);
+    devices.ondevicechange = handler;
 
     return {
       handler,
@@ -33,10 +33,10 @@ describe('DeviceManager', () => {
 
     const [device] = await devices.enumerateDevices();
 
-    expect(handler).toHaveBeenCalledWith(
-      [{ type: OperationType.Add, device }],
-      [device]
-    );
+    expect(handler).toHaveBeenCalledWith({
+      changes: [{ type: OperationType.Add, device }],
+      devices: [device],
+    });
   });
 
   it('does not duplicate change notifications to subscribers', async () => {
@@ -51,19 +51,18 @@ describe('DeviceManager', () => {
 
   it('detects removed devices', async () => {
     setDeviceList([{}]);
-    const { devices } = setup();
+    const { devices, handler } = setup();
 
     const [device] = await devices.enumerateDevices();
     setDeviceList([]);
-    const handler = jest.fn();
 
-    devices.on('devicechange', handler);
+    handler.mockClear();
     await devices.enumerateDevices();
 
-    expect(handler).toHaveBeenCalledWith(
-      [{ type: OperationType.Remove, device }],
-      expect.any(Array)
-    );
+    expect(handler).toHaveBeenCalledWith({
+      changes: [{ type: OperationType.Remove, device }],
+      devices: expect.any(Array),
+    });
   });
 
   it('correlates identical devices between calls', async () => {
@@ -75,10 +74,10 @@ describe('DeviceManager', () => {
     handler.mockClear();
     const [, secondDevice] = await devices.enumerateDevices();
 
-    expect(handler).toHaveBeenCalledWith(
-      [{ type: OperationType.Add, device: secondDevice }],
-      expect.any(Array)
-    );
+    expect(handler).toHaveBeenCalledWith({
+      changes: [{ type: OperationType.Add, device: secondDevice }],
+      devices: expect.any(Array),
+    });
   });
 
   it('infers device relationships when the ID was just added', async () => {
@@ -103,16 +102,16 @@ describe('DeviceManager', () => {
     await devices.enumerateDevices();
 
     // It should detect that it's the same device.
-    expect(handler).toHaveBeenCalledWith(
-      [
+    expect(handler).toHaveBeenCalledWith({
+      devices: expect.any(Array),
+      changes: [
         {
           type: OperationType.Update,
           oldInfo: { ...device, deviceId: null, label: null },
           newInfo: device,
         },
       ],
-      expect.any(Array)
-    );
+    });
   });
 
   // *scowls at Safari*
@@ -139,16 +138,16 @@ describe('DeviceManager', () => {
     await devices.enumerateDevices();
 
     // It should detect that it's the same device.
-    expect(handler).toHaveBeenCalledWith(
-      [
+    expect(handler).toHaveBeenCalledWith({
+      devices: expect.any(Array),
+      changes: [
         {
           type: OperationType.Update,
           oldInfo: { ...device, deviceId: null, groupId: null, label: null },
           newInfo: { ...device, groupId: null },
         },
       ],
-      expect.any(Array)
-    );
+    });
   });
 
   it('watches the device list for changes at the OS level', async () => {
@@ -161,10 +160,10 @@ describe('DeviceManager', () => {
 
     await listener();
 
-    expect(handler).toHaveBeenCalledWith(
-      [expect.objectContaining({ type: OperationType.Add })],
-      expect.any(Array)
-    );
+    expect(handler).toHaveBeenCalledWith({
+      changes: [expect.objectContaining({ type: OperationType.Add })],
+      devices: expect.any(Array),
+    });
   });
 
   it('only watches the device list if there are subscribers', async () => {
@@ -176,6 +175,21 @@ describe('DeviceManager', () => {
     await listener();
 
     expect(getMediaDevicesApi().enumerateDevices).not.toHaveBeenCalled();
+  });
+
+  it('supports deprecated listeners on change events', async () => {
+    const devices = new DeviceManager();
+    const handler = jest.fn();
+    devices.on('devicechange', handler);
+
+    setDeviceList([{ label: 'Drone' }]);
+    const [listener] = (getMediaDevicesApi() as any).listeners('devicechange');
+    await listener();
+
+    expect(handler).toHaveBeenCalledWith(
+      [expect.objectContaining({ type: OperationType.Add })],
+      expect.any(Array)
+    );
   });
 
   it('refreshes the device list after a successful GUM query', async () => {
