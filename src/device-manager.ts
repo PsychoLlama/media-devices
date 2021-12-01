@@ -115,8 +115,8 @@ export default class DeviceManager extends EventEmitter {
     // If a "new" device exists in the list of old devices, then it obviously
     // wasn't just added and clearly we haven't removed it either. It's the
     // same device.
-    const additions = newDevices.filter(newDevice => {
-      const oldDeviceIndex = removals.findIndex(oldDevice => {
+    const additions = newDevices.filter((newDevice) => {
+      const oldDeviceIndex = removals.findIndex((oldDevice) => {
         return isIdenticalDevice(newDevice, oldDevice);
       });
 
@@ -147,12 +147,12 @@ export default class DeviceManager extends EventEmitter {
       ...updates,
 
       // A device was just removed.
-      ...removals.map(device => {
+      ...removals.map((device) => {
         return { type: OperationType.Remove, device } as DeviceRemoveEvent;
       }),
 
       // A device was just plugged in.
-      ...additions.map(device => {
+      ...additions.map((device) => {
         return { type: OperationType.Add, device } as DeviceAddEvent;
       }),
     ];
