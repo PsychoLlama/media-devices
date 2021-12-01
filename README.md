@@ -34,9 +34,9 @@ await MediaDevices.getUserMedia({ video: true, audio: true })
 await MediaDevices.getDisplayMedia()
 
 // Listen for changes in available devices
-MediaDevices.on('devicechange', changes => {
+MediaDevices.ondevicechange = ({ changes }) => {
   // [{ type: 'add', ... }, { type: 'update', ... }]
-})
+}
 ```
 
 ### `supportsMediaDevices()`
@@ -50,16 +50,16 @@ if (supportsMediaDevices()) {
 }
 ```
 
-### `on('devicechange')`
+### `ondevicechange`
 `MediaDevices` emits this event whenever the list of devices changes. It passes two things:
 
 1. A list of changes
-1. The list of devices
+1. The full list of devices
 
 ```js
-MediaDevices.on('devicechange', (changes, devices) => {
+MediaDevices.ondevicechange = ({ changes, devices }) => {
   // ...
-})
+}
 ```
 
 The list of devices is exactly what you'd get from `enumerateDevices()`. The changes are a diff between this list and the last, showing which devices were added, which were removed, and which were updated.
