@@ -222,6 +222,25 @@ describe('DeviceManager', () => {
     await expect(devices.getDisplayMedia()).resolves.toBe(stream);
   });
 
+  it('refreshes the device list after a successful display query', async () => {
+    setDeviceList([{ label: '' }]);
+    const { devices } = setup();
+    await devices.getDisplayMedia({ video: true });
+
+    expect(getMediaDevicesApi().enumerateDevices).toHaveBeenCalled();
+  });
+
+  it('only refreshes the device list after the first successful GDM', async () => {
+    setDeviceList([{ label: '' }]);
+    const { devices } = setup();
+
+    await devices.getDisplayMedia({ video: true });
+    await devices.getDisplayMedia({ video: true });
+    await devices.getDisplayMedia({ video: true });
+
+    expect(getMediaDevicesApi().enumerateDevices).toHaveBeenCalledTimes(1);
+  });
+
   it('survives even if the media devices API is unsupported', () => {
     delete (navigator as any).mediaDevices;
 
