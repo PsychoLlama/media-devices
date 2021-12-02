@@ -104,7 +104,7 @@ export default class DeviceManager extends EventEmitter {
     return getMediaDevicesApi().getSupportedConstraints();
   };
 
-  _checkForDeviceChanges(newDevices: Array<DeviceInfo>) {
+  private _checkForDeviceChanges(newDevices: Array<DeviceInfo>) {
     const oldDevices = this._knownDevices;
     this._knownDevices = newDevices; // Replace the old devices.
 
@@ -128,7 +128,7 @@ export default class DeviceManager extends EventEmitter {
    * correlate devices from permissioned requests with unpermissioned
    * requests.
    */
-  _calculateDeviceDiff(
+  private _calculateDeviceDiff(
     newDevices: Array<DeviceInfo>,
     oldDevices: Array<DeviceInfo>
   ): Array<DeviceChange> {
@@ -241,10 +241,4 @@ interface DeviceChangeListener {
     changes: Array<DeviceChange>;
     devices: Array<DeviceInfo>;
   }): unknown;
-}
-
-declare global {
-  interface MediaDevices {
-    getDisplayMedia(constraints?: MediaStreamConstraints): Promise<MediaStream>;
-  }
 }
