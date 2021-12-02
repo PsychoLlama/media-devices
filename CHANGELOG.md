@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Export `DeviceChange` type which describes each object in a device change set.
 - New `mediaDevices.ondevicechange` mutable field for listeners.
+- Public methods are bound, no longer depending on implicit `this` context.
 
 ### Fixed
 

@@ -44,7 +44,7 @@ export default class DeviceManager extends EventEmitter {
    * configurable through constraints.
    * See: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
    */
-  async getUserMedia(constraints: MediaStreamConstraints) {
+  getUserMedia = async (constraints: MediaStreamConstraints) => {
     const stream = await getUserMedia(constraints);
 
     // The browser considers us trusted after the first approved GUM query and
@@ -58,16 +58,16 @@ export default class DeviceManager extends EventEmitter {
     this.enumerateDevices();
 
     return stream;
-  }
+  };
 
   /**
    * Ask the user to share their screen. Resolves with a media stream carrying
    * video, and potentially audio from the application window.
    * See: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getDisplayMedia
    */
-  async getDisplayMedia(
+  getDisplayMedia = async (
     constraints?: MediaStreamConstraints
-  ): Promise<MediaStream> {
+  ): Promise<MediaStream> => {
     const stream = await getMediaDevicesApi().getDisplayMedia(constraints);
 
     // Similar to `getUserMedia(...)`, granting access to your screen implies
@@ -81,28 +81,28 @@ export default class DeviceManager extends EventEmitter {
     }
 
     return stream;
-  }
+  };
 
   /**
    * Lists every available hardware device, including microphones, cameras,
    * and speakers (depending on browser support). May contain redacted
    * information depending on application permissions.
    */
-  async enumerateDevices(): Promise<Array<DeviceInfo>> {
+  enumerateDevices = async (): Promise<Array<DeviceInfo>> => {
     const devices = await enumerateDevices();
     this._checkForDeviceChanges(devices);
 
     return devices;
-  }
+  };
 
   /**
    * Returns an object containing every media constraint supported by the
    * browser.
    * See: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getSupportedConstraints
    */
-  getSupportedConstraints(): MediaTrackSupportedConstraints {
+  getSupportedConstraints = (): MediaTrackSupportedConstraints => {
     return getMediaDevicesApi().getSupportedConstraints();
-  }
+  };
 
   _checkForDeviceChanges(newDevices: Array<DeviceInfo>) {
     const oldDevices = this._knownDevices;
