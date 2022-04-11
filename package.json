@@ -59,7 +59,7 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "7.0.8",
-    "dts-cli": "1.4.0",
+    "dts-cli": "1.5.0",
     "husky": "7.0.4",
     "size-limit": "7.0.8",
     "tslib": "2.3.1",
