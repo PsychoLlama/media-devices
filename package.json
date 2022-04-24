@@ -42,6 +42,7 @@
     "trailingComma": "es5"
   },
   "jest": {
+    "preset": "ts-jest",
     "testEnvironment": "jsdom",
     "setupFiles": [
       "<rootDir>/src/test-utils/index.ts"
