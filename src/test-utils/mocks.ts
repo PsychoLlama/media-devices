@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import EventEmitter from 'events';
 
 export class MockMediaDeviceInfo implements MediaDeviceInfo {
