@@ -177,21 +177,6 @@ describe('DeviceManager', () => {
     expect(getMediaDevicesApi().enumerateDevices).not.toHaveBeenCalled();
   });
 
-  it('supports deprecated listeners on change events', async () => {
-    const devices = new DeviceManager();
-    const handler = jest.fn();
-    devices.on('devicechange', handler);
-
-    setDeviceList([{ label: 'Drone' }]);
-    const [listener] = (getMediaDevicesApi() as any).listeners('devicechange');
-    await listener();
-
-    expect(handler).toHaveBeenCalledWith(
-      [expect.objectContaining({ type: OperationType.Add })],
-      expect.any(Array)
-    );
-  });
-
   it('refreshes the device list after a successful GUM query', async () => {
     setDeviceList([{ label: '' }]);
     const { devices } = setup();

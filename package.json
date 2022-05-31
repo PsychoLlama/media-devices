@@ -6,9 +6,14 @@
   "author": "Jesse Gibson <JesseTheGibson@gmail.com>",
   "repository": "github:PsychoLlama/media-devices",
   "homepage": "https://github.com/PsychoLlama/media-devices#readme",
-  "module": "dist/media-devices.esm.js",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "module": "./dist/media-devices.es.js",
+  "main": "./dist/media-devices.umd.js",
+  "exports": {
+    ".": {
+      "require": "./dist/media-devices.umd.js",
+      "import": "./dist/media-devices.es.js"
+    }
+  },
   "files": [
     "dist",
     "src"
@@ -21,23 +26,24 @@
     "mediadevices"
   ],
   "scripts": {
-    "start": "dts watch",
-    "build": "dts build",
+    "prepare": "vite build --sourcemap",
     "test": "./bin/run-tests",
-    "test:unit": "dts test",
-    "test:lint": "dts lint src",
-    "prepare": "dts build",
-    "size": "size-limit",
-    "analyze": "size-limit --why"
+    "test:unit": "jest --color",
+    "test:lint": "eslint src --ext ts --color",
+    "test:fmt": "prettier --check src"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "dts lint src"
+      "pre-commit": "lint-staged"
     }
   },
+  "lint-staged": {
+    "*.tsx?": [
+      "eslint",
+      "prettier --check"
+    ]
+  },
   "prettier": {
-    "printWidth": 80,
-    "semi": true,
     "singleQuote": true,
     "trailingComma": "es5"
   },
@@ -48,23 +54,46 @@
       "<rootDir>/src/test-utils/index.ts"
     ]
   },
-  "size-limit": [
-    {
-      "path": "dist/media-devices.cjs.production.min.js",
-      "limit": "10 KB"
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "sourceType": "module"
     },
-    {
-      "path": "dist/media-devices.esm.js",
-      "limit": "10 KB"
+    "overrides": [
+      {
+        "files": [
+          "./**/__tests__/*.ts{x,}"
+        ],
+        "env": {
+          "jest": true
+        },
+        "rules": {
+          "@typescript-eslint/no-explicit-any": "off"
+        }
+      }
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {
+      "@typescript-eslint/no-use-before-define": "off"
     }
-  ],
+  },
   "devDependencies": {
-    "@size-limit/preset-small-lib": "7.0.8",
-    "dts-cli": "1.5.1",
+    "@types/jest": "27.5.1",
+    "@typescript-eslint/eslint-plugin": "5.27.0",
+    "@typescript-eslint/parser": "5.27.0",
+    "eslint": "8.16.0",
     "husky": "8.0.1",
+    "jest": "28.1.0",
+    "jest-environment-jsdom": "28.1.0",
+    "lint-staged": "12.4.3",
+    "prettier": "2.6.2",
     "size-limit": "7.0.8",
     "ts-jest": "28.0.3",
-    "tslib": "2.4.0",
-    "typescript": "4.7.2"
+    "typescript": "4.7.2",
+    "vite": "2.9.9",
+    "vite-dts": "1.0.4"
   }
 }

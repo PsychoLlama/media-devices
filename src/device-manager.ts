@@ -1,4 +1,3 @@
-import EventEmitter from 'events';
 import enumerateDevices, { DeviceInfo } from './enumerate-devices';
 import { getMediaDevicesApi, supportsMediaDevices } from './support-detection';
 import getUserMedia from './get-user-media';
@@ -8,7 +7,7 @@ import getUserMedia from './get-user-media';
  * between updates. Steps are taken to handle cross-browser quirks and
  * attempts graceful integration with browser fingerprinting countermeasures.
  */
-export default class DeviceManager extends EventEmitter {
+export default class DeviceManager {
   private _knownDevices: Array<DeviceInfo> = [];
   private _gainedScreenAccessOnce = false;
 
@@ -22,15 +21,13 @@ export default class DeviceManager extends EventEmitter {
   ondevicechange: null | DeviceChangeListener = null;
 
   constructor() {
-    super();
-
     // Listen for changes at the OS level. If the device list changes and
     // someone's around to see it, refresh the device list. Refreshing has
     // a side effect of performing a diff and telling all subscribers about
     // the change.
     if (supportsMediaDevices()) {
       getMediaDevicesApi().addEventListener('devicechange', () => {
-        if (this.listenerCount('devicechange') || this.ondevicechange) {
+        if (this.ondevicechange) {
           return this.enumerateDevices();
         }
 
@@ -114,7 +111,6 @@ export default class DeviceManager extends EventEmitter {
     );
 
     if (changes.length) {
-      this.emit('devicechange', changes, newDevices);
       this.ondevicechange?.({ changes, devices: newDevices });
     }
   }
