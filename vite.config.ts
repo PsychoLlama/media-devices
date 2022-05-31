@@ -10,5 +10,10 @@ export default defineConfig({
       name: 'media-devices',
       fileName: (format: string) => `media-devices.${format}.js`,
     },
+    rollupOptions: {
+      output: {
+        exports: 'named',
+      },
+    },
   },
 });
