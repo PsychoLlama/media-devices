@@ -88,7 +88,7 @@
     "husky": "8.0.1",
     "jest": "28.1.0",
     "jest-environment-jsdom": "28.1.0",
-    "lint-staged": "12.4.3",
+    "lint-staged": "12.5.0",
     "prettier": "2.6.2",
     "size-limit": "7.0.8",
     "ts-jest": "28.0.3",
