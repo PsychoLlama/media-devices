@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [UNRELEASED]
 
+## [0.4.0] - 2022-05-30
+
 ### Removed
 
 - The deprecated `on('devicechange')` interface has been removed. Use `ondevicechange` instead.
@@ -53,7 +55,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - A device list-diffing implementation of `ondevicechange`.
 - Support detection via `supportsMediaDevices()`.
 
-[Unreleased]: https://github.com/PsychoLlama/media-devices/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/PsychoLlama/media-devices/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/PsychoLlama/media-devices/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/PsychoLlama/media-devices/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/PsychoLlama/media-devices/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/PsychoLlama/media-devices/releases/tag/v0.1.0
