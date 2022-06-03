@@ -91,7 +91,7 @@
     "lint-staged": "13.0.0",
     "prettier": "2.6.2",
     "size-limit": "7.0.8",
-    "ts-jest": "28.0.3",
+    "ts-jest": "28.0.4",
     "typescript": "4.7.2",
     "vite": "2.9.9",
     "vite-dts": "1.0.4"
