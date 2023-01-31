@@ -92,7 +92,7 @@
     "prettier": "2.8.3",
     "size-limit": "8.1.2",
     "ts-jest": "29.0.5",
-    "typescript": "4.9.4",
+    "typescript": "4.9.5",
     "vite": "3.0.9",
     "vite-dts": "1.0.4"
   }
