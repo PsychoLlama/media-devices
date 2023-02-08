@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [UNRELEASED]
 
+### Changed
+
+- Reworked the build process to avoid an unmaintained plugin which affects how TypeScript definitions are published. There should not be any difference.
+
 ## [0.4.0] - 2022-05-30
 
 ### Removed

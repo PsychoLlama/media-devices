@@ -8,10 +8,11 @@
   "homepage": "https://github.com/PsychoLlama/media-devices#readme",
   "module": "./dist/media-devices.es.js",
   "main": "./dist/media-devices.umd.js",
+  "types": "./src/index.ts",
   "exports": {
     ".": {
       "require": "./dist/media-devices.umd.js",
-      "import": "./dist/media-devices.es.js"
+      "import": "./dist/media-devices.mjs"
     }
   },
   "files": [
@@ -90,10 +91,8 @@
     "jest-environment-jsdom": "29.4.2",
     "lint-staged": "13.1.1",
     "prettier": "2.8.3",
-    "size-limit": "8.1.2",
     "ts-jest": "29.0.5",
     "typescript": "4.9.5",
-    "vite": "3.0.9",
-    "vite-dts": "1.0.4"
+    "vite": "4.1.1"
   }
 }
