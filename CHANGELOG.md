@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - Reworked the build process to avoid an unmaintained plugin which affects how TypeScript definitions are published. There should not be any difference.
+- Publish as ESM package. Legacy entrypoints are maintained for compatibility.
 
 ## [0.4.0] - 2022-05-30
 

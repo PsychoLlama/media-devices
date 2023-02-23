@@ -6,13 +6,14 @@
   "author": "Jesse Gibson <JesseTheGibson@gmail.com>",
   "repository": "github:PsychoLlama/media-devices",
   "homepage": "https://github.com/PsychoLlama/media-devices#readme",
-  "module": "./dist/media-devices.es.js",
-  "main": "./dist/media-devices.umd.js",
+  "type": "module",
+  "module": "./dist/media-devices.js",
+  "main": "./dist/media-devices.umd.cjs",
   "types": "./src/index.ts",
   "exports": {
     ".": {
-      "require": "./dist/media-devices.umd.js",
-      "import": "./dist/media-devices.mjs"
+      "require": "./dist/media-devices.umd.cjs",
+      "import": "./dist/media-devices.js"
     }
   },
   "files": [
@@ -27,7 +28,7 @@
     "mediadevices"
   ],
   "scripts": {
-    "prepare": "vite build --sourcemap",
+    "prepare": "vite build",
     "test": "./bin/run-tests",
     "test:unit": "jest --color",
     "test:lint": "eslint src --ext ts --color",
