@@ -9,16 +9,16 @@
   "type": "module",
   "module": "./dist/media-devices.js",
   "main": "./dist/media-devices.umd.cjs",
-  "types": "./src/index.ts",
+  "types": "./dist/media-devices.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/media-devices.d.ts",
       "require": "./dist/media-devices.umd.cjs",
       "import": "./dist/media-devices.js"
     }
   },
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "keywords": [
     "camera",
@@ -94,6 +94,7 @@
     "prettier": "3.2.5",
     "ts-jest": "29.1.2",
     "typescript": "5.4.5",
-    "vite": "5.2.10"
+    "vite": "5.2.10",
+    "vite-plugin-dts": "^3.7.3"
   }
 }
