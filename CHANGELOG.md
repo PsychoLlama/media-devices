@@ -8,8 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Reworked the build process to avoid an unmaintained plugin which affects how TypeScript definitions are published. There should not be any difference.
+- Reworked the build process to avoid an unmaintained plugin which affects how TypeScript definitions are published.
 - Publish as ESM package. Legacy entrypoints are maintained for compatibility.
+- Replaced packaged source files with a generated `.d.ts` definition for TypeScript.
+
+### Removed
+
+- Source files are no longer distributed with the package. You should not notice a difference.
 
 ## [0.4.0] - 2022-05-30
 
