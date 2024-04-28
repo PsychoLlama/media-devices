@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-yarn -s test:unit --coverage || fail=1
-yarn -s test:lint || fail=1
+npm run test:unit --coverage || fail=1
+npm run test:lint || fail=1
 
 if [[ -n "$fail" ]]; then
   exit 1

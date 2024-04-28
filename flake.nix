@@ -2,19 +2,17 @@
   description = "Development environment";
 
   outputs = { self, nixpkgs }:
-    let inherit (nixpkgs) lib;
+    let
+      inherit (nixpkgs) lib;
+
+      systems =
+        [ "aarch64-linux" "aarch64-darwin" "x86_64-darwin" "x86_64-linux" ];
+
+      eachSystem = lib.flip lib.mapAttrs
+        (lib.genAttrs systems (system: nixpkgs.legacyPackages.${system}));
 
     in {
-      devShell = lib.genAttrs lib.systems.flakeExposed (system:
-        let
-          pkgs = import nixpkgs { inherit system; };
-          nodejs = pkgs.nodejs-18_x;
-
-        in pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [
-            nodejs
-            (yarn.override { inherit nodejs; })
-          ];
-        });
+      devShell =
+        eachSystem (system: pkgs: pkgs.mkShell { packages = [ pkgs.nodejs ]; });
     };
 }
