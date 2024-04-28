@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [UNRELEASED]
 
+## [0.5.0] - 2024-04-28
+
 ### Changed
 
 - Reworked the build process to avoid an unmaintained plugin which affects how TypeScript definitions are published.
@@ -65,7 +67,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - A device list-diffing implementation of `ondevicechange`.
 - Support detection via `supportsMediaDevices()`.
 
-[Unreleased]: https://github.com/PsychoLlama/media-devices/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/PsychoLlama/media-devices/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/PsychoLlama/media-devices/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/PsychoLlama/media-devices/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/PsychoLlama/media-devices/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/PsychoLlama/media-devices/compare/v0.1.0...v0.2.0
