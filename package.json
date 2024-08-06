@@ -95,6 +95,6 @@
     "ts-jest": "29.2.4",
     "typescript": "5.5.4",
     "vite": "5.3.5",
-    "vite-plugin-dts": "^3.7.3"
+    "vite-plugin-dts": "^4.0.0"
   }
 }
