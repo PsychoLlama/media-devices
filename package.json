@@ -94,7 +94,7 @@
     "prettier": "3.4.2",
     "ts-jest": "29.2.5",
     "typescript": "5.7.3",
-    "vite": "6.0.7",
+    "vite": "6.0.9",
     "vite-plugin-dts": "^4.0.0"
   }
 }
