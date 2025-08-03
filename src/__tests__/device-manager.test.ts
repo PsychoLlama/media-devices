@@ -156,9 +156,11 @@ describe('DeviceManager', () => {
 
     handler.mockClear();
     setDeviceList([{ label: 'Telescope' }]);
-    const [listener] = (getMediaDevicesApi() as any).listeners('devicechange');
+    (getMediaDevicesApi() as any).emit('devicechange');
 
-    await listener();
+    // HACK: implementation uses exactly two awaits before finishing.
+    await Promise.resolve();
+    await Promise.resolve();
 
     expect(handler).toHaveBeenCalledWith({
       changes: [expect.objectContaining({ type: OperationType.Add })],

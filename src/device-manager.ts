@@ -28,10 +28,8 @@ export default class DeviceManager {
     if (supportsMediaDevices()) {
       getMediaDevicesApi().addEventListener('devicechange', () => {
         if (this.ondevicechange) {
-          return this.enumerateDevices();
+          void this.enumerateDevices();
         }
-
-        return Promise.resolve();
       });
     }
   }
@@ -52,7 +50,7 @@ export default class DeviceManager {
     // access to the subset of devices you've been approved for. While
     // reasonable from a security perspective, it means we're never sure if
     // the cache is stale.
-    this.enumerateDevices();
+    void this.enumerateDevices();
 
     return stream;
   };
@@ -74,7 +72,7 @@ export default class DeviceManager {
     // after the first success.
     if (!this._gainedScreenAccessOnce) {
       this._gainedScreenAccessOnce = true;
-      this.enumerateDevices();
+      void this.enumerateDevices();
     }
 
     return stream;
