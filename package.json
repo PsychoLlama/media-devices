@@ -10,6 +10,9 @@
   "module": "./dist/media-devices.js",
   "main": "./dist/media-devices.umd.cjs",
   "types": "./dist/media-devices.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     ".": {
       "types": "./dist/media-devices.d.ts",
@@ -32,7 +35,10 @@
     "test": "./bin/run-tests",
     "test:unit": "jest --color",
     "test:lint": "eslint src --color",
-    "test:fmt": "prettier --check src"
+    "test:fmt": "prettier --check src",
+    "print-pkg-version": "echo ${npm_package_version}",
+    "release:candidate": "./bin/publish-rc",
+    "release:stable": "./bin/publish-stable"
   },
   "prettier": {
     "singleQuote": true,
@@ -52,6 +58,7 @@
     "eslint": "9.32.0",
     "jest": "30.0.5",
     "jest-environment-jsdom": "30.0.5",
+    "keep-a-changelog": "^2.6.2",
     "prettier": "3.6.2",
     "ts-jest": "29.4.1",
     "typescript": "5.8.3",

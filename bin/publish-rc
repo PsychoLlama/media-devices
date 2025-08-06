@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+date_string="$(date +%Y-%m-%d)"
+short_rev="$(git rev-parse --short HEAD)"
+version_string="${npm_package_version}-${date_string}.${short_rev}"
+
+npm version --no-git-tag-version "${version_string}"
+npm publish --tag rc

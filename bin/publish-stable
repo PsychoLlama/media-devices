@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Bump the version, update the changelog, push a tag.
+
+echo "Beginning release process: ${VERSION_TO_RELEASE}"
+
+echo 'Bumping package version.'
+npm version --no-git-tag "${VERSION_TO_RELEASE}"
+new_version="$(npm run -s print-pkg-version)"
+
+echo 'Updating changelog.'
+npx changelog --release "${new_version}"
+npx changelog --create
+npx prettier --write CHANGELOG.md
+
+echo 'Generating release notes.'
+release_notes="$(node --input-type=module -e "
+import { parser } from 'keep-a-changelog';
+import { readFile } from 'node:fs/promises';
+import { format, resolveConfig } from 'prettier';
+
+const [fileContents, prettierConfig] = await Promise.all([
+  readFile('CHANGELOG.md', 'utf8'),
+  resolveConfig(),
+])
+
+const { releases } = parser(fileContents)
+const formattedChangelog = await format(String(releases[1]), {
+  ...prettierConfig,
+  parser: 'markdown',
+})
+
+console.log(formattedChangelog);
+")"
+
+# Allow `#` characters in git commit messages. Enables markdown.
+git config core.commentChar '~'
+
+echo 'Setting comitter identity.'
+git config user.name 'Release Bot'
+git config user.email 'release-bot@users.noreply.github.com'
+
+echo 'Committing changelog.'
+git add -- CHANGELOG.md package.json package-lock.json
+git commit --message "v${new_version}"
+
+echo 'Creating git tag.'
+git tag -a "v${new_version}" -m "v${new_version}"
+
+# Pushing a tag triggers the stable release.
+git push origin "$(git rev-parse --abbrev-ref HEAD)"
+git push --tags
+
+# Associate the tag with a GitHub release.
+gh release create "v${new_version}" --verify-tag --title "v${new_version}" --notes "${release_notes}"
+
+echo 'Publishing to npm.'
+npm publish
