@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [UNRELEASED]
 
+### Added
+
+- Merges to `main` automatically publish an `@rc` release.
+
 ## [0.5.0] - 2024-04-28
 
 ### Changed
