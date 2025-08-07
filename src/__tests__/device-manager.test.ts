@@ -10,7 +10,7 @@ describe('DeviceManager', () => {
   });
 
   const setup = () => {
-    const handler = jest.fn();
+    const handler = vi.fn();
     const devices = new DeviceManager();
     devices.ondevicechange = handler;
 

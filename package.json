@@ -33,7 +33,7 @@
   "scripts": {
     "prepare": "vite build",
     "test": "./bin/run-tests",
-    "test:unit": "jest --color",
+    "test:unit": "vitest --color --run",
     "test:lint": "eslint src --color",
     "test:fmt": "prettier --check src",
     "print-pkg-version": "echo ${npm_package_version}",
@@ -44,26 +44,16 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "jsdom",
-    "setupFiles": [
-      "<rootDir>/src/test-utils/index.ts"
-    ]
-  },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
-    "@types/jest": "30.0.0",
     "@typescript-eslint/parser": "8.39.0",
     "eslint": "9.32.0",
-    "jest": "30.0.5",
-    "jest-environment-jsdom": "30.0.5",
     "keep-a-changelog": "^2.6.2",
     "prettier": "3.6.2",
-    "ts-jest": "29.4.1",
     "typescript": "5.8.3",
     "typescript-eslint": "^8.38.0",
     "vite": "7.0.6",
-    "vite-plugin-dts": "^4.0.0"
+    "vite-plugin-dts": "^4.0.0",
+    "vitest": "^3.2.4"
   }
 }
