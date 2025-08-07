@@ -14,14 +14,14 @@ export class MockMediaDeviceInfo implements MediaDeviceInfo {
 // TODO: Use `EventTarget` instead of `EventEmitter`.
 export class MockMediaDevices extends EventEmitter implements MediaDevices {
   // --- incomplete stubs ---
-  dispatchEvent = jest.fn();
+  dispatchEvent = vi.fn();
   ondevicechange = null;
-  getUserMedia = jest.fn();
-  getDisplayMedia = jest.fn();
-  getSupportedConstraints = jest.fn();
+  getUserMedia = vi.fn();
+  getDisplayMedia = vi.fn();
+  getSupportedConstraints = vi.fn();
 
   // --- complete stubs ---
-  enumerateDevices = jest.fn().mockResolvedValue([]);
+  enumerateDevices = vi.fn().mockResolvedValue([]);
 
   addEventListener(...args: Parameters<EventEmitter['addListener']>) {
     return super.addListener(...args);
