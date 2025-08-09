@@ -7,7 +7,7 @@ import {
 export const mediaDevices = new MockMediaDevices();
 
 Object.assign(navigator, { mediaDevices });
-Object.assign(global, { MediaStream: MockMediaStream });
+Object.assign(globalThis, { MediaStream: MockMediaStream });
 
 // Determines the device list given by `enumerateDevices()`.
 export function setDeviceList(deviceList: Array<Partial<MediaDeviceInfo>>) {
