@@ -47,7 +47,7 @@
   "devDependencies": {
     "@eslint/js": "^9.32.0",
     "@types/node": "^24.2.1",
-    "@typescript-eslint/parser": "8.45.0",
+    "@typescript-eslint/parser": "8.46.0",
     "eslint": "9.37.0",
     "jsdom": "^27.0.0",
     "keep-a-changelog": "^2.6.2",
