@@ -13,6 +13,6 @@
 
     in {
       devShell =
-        eachSystem (system: pkgs: pkgs.mkShell { packages = [ pkgs.nodejs ]; });
+        eachSystem (system: pkgs: pkgs.mkShell { packages = [ pkgs.nodejs_24 ]; });
     };
 }
