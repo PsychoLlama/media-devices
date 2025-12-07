@@ -56,4 +56,4 @@ git push --tags
 gh release create "v${new_version}" --verify-tag --title "v${new_version}" --notes "${release_notes}"
 
 echo 'Publishing to npm.'
-npm publish
+npm publish --provenance
