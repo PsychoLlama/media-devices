@@ -6,13 +6,13 @@ set -euo pipefail
 echo "Beginning release process: ${VERSION_TO_RELEASE}"
 
 echo 'Bumping package version.'
-npm version --no-git-tag "${VERSION_TO_RELEASE}"
-new_version="$(npm run -s print-pkg-version)"
+pnpm version --no-git-tag-version "${VERSION_TO_RELEASE}"
+new_version="$(pnpm run -s print-pkg-version)"
 
 echo 'Updating changelog.'
-npx changelog --release "${new_version}"
-npx changelog --create
-npx prettier --write CHANGELOG.md
+pnpm exec changelog --release "${new_version}"
+pnpm exec changelog --create
+pnpm exec prettier --write CHANGELOG.md
 
 echo 'Generating release notes.'
 release_notes="$(node --input-type=module -e "
@@ -42,7 +42,7 @@ git config user.name 'Release Bot'
 git config user.email 'release-bot@users.noreply.github.com'
 
 echo 'Committing changelog.'
-git add -- CHANGELOG.md package.json package-lock.json
+git add -- CHANGELOG.md package.json pnpm-lock.yaml
 git commit --message "v${new_version}"
 
 echo 'Creating git tag.'
@@ -56,4 +56,4 @@ git push --tags
 gh release create "v${new_version}" --verify-tag --title "v${new_version}" --notes "${release_notes}"
 
 echo 'Publishing to npm.'
-npm publish --provenance
+pnpm publish --provenance --no-git-checks

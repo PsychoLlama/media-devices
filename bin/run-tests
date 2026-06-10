@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-npm run test:unit --coverage || fail=1
-npm run test:lint || fail=1
+pnpm run test:unit || fail=1
+pnpm run test:lint || fail=1
 
 if [[ -n "$fail" ]]; then
   exit 1

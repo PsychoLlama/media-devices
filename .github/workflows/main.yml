@@ -19,15 +19,15 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: DeterminateSystems/nix-installer-action@main
-      - name: Restore npm cache
+      - name: Restore pnpm store cache
         uses: actions/cache@v5
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: ~/.local/share/pnpm/store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-node-
-      - run: nix develop --command npm clean-install
-      - run: nix develop --command npm test
+            ${{ runner.os }}-pnpm-
+      - run: nix develop --command pnpm install --frozen-lockfile
+      - run: nix develop --command pnpm test
 
   publish-rc:
     runs-on: ubuntu-latest
@@ -38,15 +38,15 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: DeterminateSystems/nix-installer-action@main
-      - name: Restore npm cache
+      - name: Restore pnpm store cache
         uses: actions/cache@v5
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: ~/.local/share/pnpm/store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-node-
-      - run: nix develop --command npm clean-install
-      - run: nix develop --command npm run release:candidate
+            ${{ runner.os }}-pnpm-
+      - run: nix develop --command pnpm install --frozen-lockfile
+      - run: nix develop --command pnpm run release:candidate
 
   publish-stable:
     runs-on: ubuntu-latest
@@ -62,12 +62,12 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: DeterminateSystems/nix-installer-action@main
-      - name: Restore npm cache
+      - name: Restore pnpm store cache
         uses: actions/cache@v5
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: ~/.local/share/pnpm/store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-node-
-      - run: nix develop --command npm clean-install
-      - run: nix develop --command npm run release:stable
+            ${{ runner.os }}-pnpm-
+      - run: nix develop --command pnpm install --frozen-lockfile
+      - run: nix develop --command pnpm run release:stable
