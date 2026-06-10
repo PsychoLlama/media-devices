@@ -1,19 +1,4 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", ":disableDependencyDashboard"],
-  "platformAutomerge": false,
-  "nix": {
-    "enabled": true
-  },
-  "packageRules": [
-    {
-      "matchDepTypes": ["devDependencies"],
-      "automerge": true
-    },
-    {
-      "matchManagers": ["github-actions", "nix"],
-      "automerge": true
-    }
-  ]
+  "extends": ["github>PsychoLlama/renovate-config"]
 }
-
