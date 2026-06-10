@@ -9,13 +9,13 @@
   "type": "module",
   "module": "./dist/media-devices.js",
   "main": "./dist/media-devices.umd.cjs",
-  "types": "./dist/media-devices.d.ts",
+  "types": "./dist/index.d.ts",
   "publishConfig": {
     "access": "public"
   },
   "exports": {
     ".": {
-      "types": "./dist/media-devices.d.ts",
+      "types": "./dist/index.d.ts",
       "require": "./dist/media-devices.umd.cjs",
       "import": "./dist/media-devices.js"
     }
@@ -61,6 +61,11 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild"
-    ]
+    ],
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@microsoft/api-extractor"
+      ]
+    }
   }
 }
