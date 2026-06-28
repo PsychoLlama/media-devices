@@ -36,14 +36,14 @@ importers:
         specifier: ^8.38.0
         version: 8.58.0(eslint@10.5.0)(typescript@6.0.3)
       vite:
-        specifier: 7.3.5
-        version: 7.3.5(@types/node@24.13.2)
+        specifier: 7.3.6
+        version: 7.3.6(@types/node@24.13.2)
       vite-plugin-dts:
         specifier: ^5.0.0
-        version: 5.0.3(esbuild@0.27.1)(rollup@4.46.2)(typescript@6.0.3)(vite@7.3.5(@types/node@24.13.2))
+        version: 5.0.3(esbuild@0.27.1)(rollup@4.46.2)(typescript@6.0.3)(vite@7.3.6(@types/node@24.13.2))
       vitest:
         specifier: ^4.0.0
-        version: 4.1.9(@types/node@24.13.2)(jsdom@29.1.1)(vite@7.3.5(@types/node@24.13.2))
+        version: 4.1.9(@types/node@24.13.2)(jsdom@29.1.1)(vite@7.3.6(@types/node@24.13.2))
 
 packages:
 
@@ -914,10 +914,6 @@ packages:
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
-  picomatch@4.0.3:
-    resolution: {integrity: sha512-5gTmgEY/sqK6gFXLIsQNH19lWb4ebPDLA4SdLP7dsWkIXHWlG66oPuVvXSGFPppYZz8ZDZq0dYYrbHfBCVUb1Q==}
-    engines: {node: '>=12'}
-
   picomatch@4.0.4:
     resolution: {integrity: sha512-QP88BAKvMam/3NxH6vj2o21R6MjxZUAd6nlwAS/pnGvN9IVLocLHxGYIzFhg6fUQ+5th6P4dv4eW9jX3DSIj7A==}
     engines: {node: '>=12'}
@@ -996,10 +992,6 @@ packages:
   tinyexec@1.2.4:
     resolution: {integrity: sha512-SHf/r48b7vOrjve9PxJo3MN5v5yuyjHvdUcrQffT3WXMUfnGmHDVbC4k3sHJaJTgZCwpUplIaAo5ANtMyp3YHg==}
     engines: {node: '>=18'}
-
-  tinyglobby@0.2.15:
-    resolution: {integrity: sha512-j2Zq4NyQYG5XMST4cbs02Ak8iJUdxRM0XI5QyxXuZOzKOINmWurp3smXu3y5wDcJrptwpSjgXHzIQxR0omXljQ==}
-    engines: {node: '>=12.0.0'}
 
   tinyglobby@0.2.17:
     resolution: {integrity: sha512-wXR/dYpcqKmfWpEdZjiKJOwCNFndD0DMnrW/cYjVGttEkBfVgcLFHoNrlj47mjOVic9yyNu65alsgF4NQyTa2g==}
@@ -1107,8 +1099,8 @@ packages:
       vite:
         optional: true
 
-  vite@7.3.5:
-    resolution: {integrity: sha512-KuOaNhcnGFN2zIPGA7wRmzF+lJA1sea7rHq17aiJ++9lzY1WWG6Jpwqwe1KNbRVPIqHmr8GLYx7jbrQcN/7/ww==}
+  vite@7.3.6:
+    resolution: {integrity: sha512-4XP60spRGjSZFf1qYH+dJIkK2znL3zQfl9KkOV9MkkRR/3Dls0dxaBsQPTloEc5BLXWPL9vsOxopxyKoMmDueg==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -1618,13 +1610,13 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.1.0
 
-  '@vitest/mocker@4.1.9(vite@7.3.5(@types/node@24.13.2))':
+  '@vitest/mocker@4.1.9(vite@7.3.6(@types/node@24.13.2))':
     dependencies:
       '@vitest/spy': 4.1.9
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 7.3.5(@types/node@24.13.2)
+      vite: 7.3.6(@types/node@24.13.2)
 
   '@vitest/pretty-format@4.1.9':
     dependencies:
@@ -1840,10 +1832,6 @@ snapshots:
 
   fast-levenshtein@2.0.6: {}
 
-  fdir@6.5.0(picomatch@4.0.3):
-    optionalDependencies:
-      picomatch: 4.0.3
-
   fdir@6.5.0(picomatch@4.0.4):
     optionalDependencies:
       picomatch: 4.0.4
@@ -2011,8 +1999,6 @@ snapshots:
 
   picocolors@1.1.1: {}
 
-  picomatch@4.0.3: {}
-
   picomatch@4.0.4: {}
 
   pkg-types@1.3.1:
@@ -2095,11 +2081,6 @@ snapshots:
 
   tinyexec@1.2.4: {}
 
-  tinyglobby@0.2.15:
-    dependencies:
-      fdir: 6.5.0(picomatch@4.0.3)
-      picomatch: 4.0.3
-
   tinyglobby@0.2.17:
     dependencies:
       fdir: 6.5.0(picomatch@4.0.4)
@@ -2148,7 +2129,7 @@ snapshots:
 
   undici@7.25.0: {}
 
-  unplugin-dts@1.0.3(esbuild@0.27.1)(rollup@4.46.2)(typescript@6.0.3)(vite@7.3.5(@types/node@24.13.2)):
+  unplugin-dts@1.0.3(esbuild@0.27.1)(rollup@4.46.2)(typescript@6.0.3)(vite@7.3.6(@types/node@24.13.2)):
     dependencies:
       '@rollup/pluginutils': 5.4.0(rollup@4.46.2)
       '@volar/typescript': 2.4.28
@@ -2162,7 +2143,7 @@ snapshots:
     optionalDependencies:
       esbuild: 0.27.1
       rollup: 4.46.2
-      vite: 7.3.5(@types/node@24.13.2)
+      vite: 7.3.6(@types/node@24.13.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -2177,12 +2158,12 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  vite-plugin-dts@5.0.3(esbuild@0.27.1)(rollup@4.46.2)(typescript@6.0.3)(vite@7.3.5(@types/node@24.13.2)):
+  vite-plugin-dts@5.0.3(esbuild@0.27.1)(rollup@4.46.2)(typescript@6.0.3)(vite@7.3.6(@types/node@24.13.2)):
     dependencies:
-      unplugin-dts: 1.0.3(esbuild@0.27.1)(rollup@4.46.2)(typescript@6.0.3)(vite@7.3.5(@types/node@24.13.2))
+      unplugin-dts: 1.0.3(esbuild@0.27.1)(rollup@4.46.2)(typescript@6.0.3)(vite@7.3.6(@types/node@24.13.2))
     optionalDependencies:
       rollup: 4.46.2
-      vite: 7.3.5(@types/node@24.13.2)
+      vite: 7.3.6(@types/node@24.13.2)
     transitivePeerDependencies:
       - '@rspack/core'
       - '@vue/language-core'
@@ -2192,22 +2173,22 @@ snapshots:
       - typescript
       - webpack
 
-  vite@7.3.5(@types/node@24.13.2):
+  vite@7.3.6(@types/node@24.13.2):
     dependencies:
       esbuild: 0.27.1
-      fdir: 6.5.0(picomatch@4.0.3)
-      picomatch: 4.0.3
+      fdir: 6.5.0(picomatch@4.0.4)
+      picomatch: 4.0.4
       postcss: 8.5.6
       rollup: 4.46.2
-      tinyglobby: 0.2.15
+      tinyglobby: 0.2.17
     optionalDependencies:
       '@types/node': 24.13.2
       fsevents: 2.3.3
 
-  vitest@4.1.9(@types/node@24.13.2)(jsdom@29.1.1)(vite@7.3.5(@types/node@24.13.2)):
+  vitest@4.1.9(@types/node@24.13.2)(jsdom@29.1.1)(vite@7.3.6(@types/node@24.13.2)):
     dependencies:
       '@vitest/expect': 4.1.9
-      '@vitest/mocker': 4.1.9(vite@7.3.5(@types/node@24.13.2))
+      '@vitest/mocker': 4.1.9(vite@7.3.6(@types/node@24.13.2))
       '@vitest/pretty-format': 4.1.9
       '@vitest/runner': 4.1.9
       '@vitest/snapshot': 4.1.9
@@ -2224,7 +2205,7 @@ snapshots:
       tinyexec: 1.2.4
       tinyglobby: 0.2.17
       tinyrainbow: 3.1.0
-      vite: 7.3.5(@types/node@24.13.2)
+      vite: 7.3.6(@types/node@24.13.2)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 24.13.2
