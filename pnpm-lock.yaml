@@ -25,7 +25,7 @@ importers:
         version: 30.0.1
       keep-a-changelog:
         specifier: ^3.0.0
-        version: 3.0.5
+        version: 3.0.6
       prettier:
         specifier: 3.9.6
         version: 3.9.6
@@ -588,6 +588,11 @@ packages:
 
   '@volar/typescript@2.4.28':
     resolution: {integrity: sha512-Ja6yvWrbis2QtN4ClAKreeUZPVYMARDYZl9LMEv1iQ1QdepB6wn0jTRxA9MftYmYa4DQ4k/DaSZpFPUfxl8giw==}
+    peerDependencies:
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -829,8 +834,8 @@ packages:
   json-stable-stringify-without-jsonify@1.0.1:
     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}
 
-  keep-a-changelog@3.0.5:
-    resolution: {integrity: sha512-ReDwgw+/5/emBeE+fbUpXr3KDqtAjo7VX/o9H+WiEh2yRqxozWzD6RUIs+rsj/C6FxQeBqjwkAAZtJrCIxcJQw==}
+  keep-a-changelog@3.0.6:
+    resolution: {integrity: sha512-uuk+5lGDspxMPIm21J7TFWRPV2jBwAOFub6SPg1/oQ20U1KP0QbKAd1LlsQS9/9fDCxBpayiLSMoBYlP/bjCAw==}
     hasBin: true
 
   keyv@4.5.4:
@@ -968,6 +973,11 @@ packages:
 
   semver@7.7.4:
     resolution: {integrity: sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM+MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA==}
+    engines: {node: '>=10'}
+    hasBin: true
+
+  semver@7.8.5:
+    resolution: {integrity: sha512-Y7/KDsb8LjooZpwaqGyulO6DQlksgCncchHGk+sZIY4SBvUocMBEFH5Ur1fI4dV+Jvl0w6cjvucaIi40puRioA==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -1658,11 +1668,13 @@ snapshots:
 
   '@volar/source-map@2.4.28': {}
 
-  '@volar/typescript@2.4.28':
+  '@volar/typescript@2.4.28(typescript@6.0.3)':
     dependencies:
       '@volar/language-core': 2.4.28
       path-browserify: 1.0.1
       vscode-uri: 3.1.0
+    optionalDependencies:
+      typescript: 6.0.3
 
   acorn-jsx@5.3.2(acorn@8.17.0):
     dependencies:
@@ -1927,10 +1939,10 @@ snapshots:
 
   json-stable-stringify-without-jsonify@1.0.1: {}
 
-  keep-a-changelog@3.0.5:
+  keep-a-changelog@3.0.6:
     dependencies:
       ini: 6.0.0
-      semver: 7.7.4
+      semver: 7.8.5
 
   keyv@4.5.4:
     dependencies:
@@ -2079,6 +2091,8 @@ snapshots:
 
   semver@7.7.4: {}
 
+  semver@7.8.5: {}
+
   shebang-command@2.0.0:
     dependencies:
       shebang-regex: 3.0.0
@@ -2150,7 +2164,7 @@ snapshots:
   unplugin-dts@1.0.3(esbuild@0.27.1)(rollup@4.46.2)(typescript@6.0.3)(vite@7.3.6(@types/node@24.13.3)):
     dependencies:
       '@rollup/pluginutils': 5.4.0(rollup@4.46.2)
-      '@volar/typescript': 2.4.28
+      '@volar/typescript': 2.4.28(typescript@6.0.3)
       compare-versions: 6.1.1
       debug: 4.4.3
       kolorist: 1.8.0
