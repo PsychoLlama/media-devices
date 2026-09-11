@@ -25,7 +25,7 @@ importers:
         version: 30.0.1
       keep-a-changelog:
         specifier: ^3.0.0
-        version: 3.1.0
+        version: 3.2.0
       prettier:
         specifier: 3.9.6
         version: 3.9.6
@@ -835,8 +835,8 @@ packages:
   json-stable-stringify-without-jsonify@1.0.1:
     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}
 
-  keep-a-changelog@3.1.0:
-    resolution: {integrity: sha512-VMisuFiKDFSX14DPJs63kF4KQEPwvCL+UXTqQHXkl3KFsxSg8JCTsco/LUb+j+eEehQAvKp503wlVjFxJB9fdA==}
+  keep-a-changelog@3.2.0:
+    resolution: {integrity: sha512-cIaGe9+A6rzZC3jWxDxBbXA3u1/3xS/eJBNDBDDoZcrRrI3hoH2B+7K5UaA0v90rT4R6DanqhUYKFQiJG2APbg==}
     hasBin: true
 
   keyv@5.6.0:
@@ -1942,7 +1942,7 @@ snapshots:
 
   json-stable-stringify-without-jsonify@1.0.1: {}
 
-  keep-a-changelog@3.1.0:
+  keep-a-changelog@3.2.0:
     dependencies:
       ini: 6.0.0
       semver: 7.8.5
