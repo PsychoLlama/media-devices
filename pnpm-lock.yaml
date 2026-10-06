@@ -40,7 +40,7 @@ importers:
         version: 7.3.6(@types/node@24.19.1)
       vite-plugin-dts:
         specifier: ^5.0.0
-        version: 5.1.1(esbuild@0.27.1)(rollup@4.46.2)(typescript@6.0.3)(vite@7.3.6(@types/node@24.19.1))
+        version: 5.1.2(esbuild@0.27.1)(rollup@4.46.2)(typescript@6.0.3)(vite@7.3.6(@types/node@24.19.1))
       vitest:
         specifier: ^5.0.0
         version: 5.0.3(@types/node@24.19.1)(jsdom@30.1.1)(vite@7.3.6(@types/node@24.19.1))
@@ -1053,8 +1053,8 @@ packages:
     resolution: {integrity: sha512-/y4/bH9YNU5hi9NIrpOuvGXFcxrj3CMrV+/AYpowAYTpHn8gX/XPFjNy766FPoYY0miQhdW977JFWKGNhBdwyQ==}
     engines: {node: '>=22.19.0'}
 
-  unplugin-dts@1.1.1:
-    resolution: {integrity: sha512-Z2VcabC0hjYuzF62oWmZXVoxagkM8bUWgqUy+dotoJTPnooR5mNaxbpv63JCmcaxdGCW2Bb75omK6FOryOYCRg==}
+  unplugin-dts@1.1.2:
+    resolution: {integrity: sha512-RDqy90XUmFj6rz4U5YoTMdYdaCJe2ZnQZaWIjkWS4952Gv0zBTQyqWtlGgVMPYHa982dURvyoc+sUOFIcDFv+w==}
     peerDependencies:
       '@microsoft/api-extractor': '>=7'
       '@rspack/core': ^1
@@ -1090,8 +1090,8 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
-  vite-plugin-dts@5.1.1:
-    resolution: {integrity: sha512-U5dyX3DPFvHB+gaJIULn90kKGsXNYllyJ3vn491Y+LGu2nL5Fb8z7YgurN/Pi6ZFlnGljh2wSM0ZbFogSh4yAg==}
+  vite-plugin-dts@5.1.2:
+    resolution: {integrity: sha512-1bXUz836sWq6ewEMQre3ZtNFVfZk/92DppgCCKP8tWx/NWwV2wHuXlRHb2TztHjbikPxvyAGLGu7hVh94Plwww==}
     peerDependencies:
       '@microsoft/api-extractor': '>=7'
       rollup: '>=3'
@@ -2145,7 +2145,7 @@ snapshots:
 
   undici@8.10.2: {}
 
-  unplugin-dts@1.1.1(esbuild@0.27.1)(rollup@4.46.2)(typescript@6.0.3)(vite@7.3.6(@types/node@24.19.1)):
+  unplugin-dts@1.1.2(esbuild@0.27.1)(rollup@4.46.2)(typescript@6.0.3)(vite@7.3.6(@types/node@24.19.1)):
     dependencies:
       '@rollup/pluginutils': 5.4.0(rollup@4.46.2)
       '@volar/typescript': 2.4.28(typescript@6.0.3)
@@ -2175,9 +2175,9 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  vite-plugin-dts@5.1.1(esbuild@0.27.1)(rollup@4.46.2)(typescript@6.0.3)(vite@7.3.6(@types/node@24.19.1)):
+  vite-plugin-dts@5.1.2(esbuild@0.27.1)(rollup@4.46.2)(typescript@6.0.3)(vite@7.3.6(@types/node@24.19.1)):
     dependencies:
-      unplugin-dts: 1.1.1(esbuild@0.27.1)(rollup@4.46.2)(typescript@6.0.3)(vite@7.3.6(@types/node@24.19.1))
+      unplugin-dts: 1.1.2(esbuild@0.27.1)(rollup@4.46.2)(typescript@6.0.3)(vite@7.3.6(@types/node@24.19.1))
     optionalDependencies:
       rollup: 4.46.2
       vite: 7.3.6(@types/node@24.19.1)
